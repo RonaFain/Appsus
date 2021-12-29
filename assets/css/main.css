@@ -3,8 +3,12 @@
 @import "./parts/fonts.css";
 @import "./parts/helpers.css";
 
-
+/* General */
 @import "./cmps/app-header.css";
 @import "./cmps/app-footer.css";
 @import "./cmps/home.css";
 @import "./cmps/nav-to-app.css";
+
+/* Keep */
+@import "./apps/keep/keep-app.css";
+@import "./apps/keep/dynamic-note.css";
