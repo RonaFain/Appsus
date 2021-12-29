@@ -1,0 +1,10 @@
+.home .hero {
+  background-color: lightsteelblue;
+  height: 80vh;
+}
+
+.home .nav-apps {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}

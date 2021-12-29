@@ -1,0 +1,41 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.app-header .main-nav {
+  position: fixed;
+  right: 0;
+  top: 10%;
+  display: flex;
+}
+
+.main-nav img {
+  width: 40px;
+}
+
+.main-nav .link-container {
+  background-color: lightcoral;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header .logo {
+  font-family: pushster;
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+}
+
+.app-header button {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.app-header button:hover {
+  border-radius: 50%;
+  background-color: lightgrey;
+}

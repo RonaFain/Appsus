@@ -1,0 +1,10 @@
+.nav-to-app {
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.nav-to-app img {
+    width: 60px;
+}
