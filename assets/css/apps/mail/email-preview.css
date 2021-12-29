@@ -1,0 +1,15 @@
+.email-preview {
+  display: flex;
+  gap: 10px;
+  font-family: lato-regular;
+}
+
+.email-preview .email-details {
+  display: flex;
+  gap: 30px;
+  font-family: lato-bold;
+}
+
+.email-preview .email-body {
+  font-family: lato-regular;
+}
