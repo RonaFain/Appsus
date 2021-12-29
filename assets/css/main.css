@@ -3,11 +3,16 @@
 @import "./parts/fonts.css";
 @import "./parts/helpers.css";
 
-
+/* General */
 @import "./cmps/app-header.css";
 @import "./cmps/app-footer.css";
 @import "./cmps/home.css";
 @import "./cmps/nav-to-app.css";
 
+/* Mail */
 @import "./apps/mail/email-preview.css";
 @import "./apps/mail/email-folder-list.css";
+
+/* Keep */
+@import "./apps/keep/keep-app.css";
+@import "./apps/keep/dynamic-note.css";
