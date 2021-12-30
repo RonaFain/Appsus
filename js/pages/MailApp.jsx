@@ -6,6 +6,7 @@ import { EmailCompose } from '../apps/mail/cmps/EmailCompose.jsx'
 import { EmailFolderList } from '../apps/mail/cmps/EmailFolderList.jsx'
 import { EmailFilter } from '../apps/mail/cmps/EmailFilter.jsx'
 import { EmailList } from '../apps/mail/cmps/EmailList.jsx'
+import { EmailDetails } from '../apps/mail/pages/EmailDetails.jsx';
 
 export class MailApp extends React.Component {
   state = {
@@ -38,11 +39,12 @@ export class MailApp extends React.Component {
 
   loadEmails = () => {
     const { criteria } = this.state
-    emailService.query(criteria).then((emails) => this.setState({ emails }))
+    emailService.query(criteria).then((emails) => {
+      this.setState({ emails })
+      this.props.history.push('/mailapp')})
   }
 
   onSetFilter = (filterBy) => {
-    console.log('filterBy' , filterBy);
     this.setState(prevState => ({criteria: {...prevState, isRead: filterBy.isRead, isStared: filterBy.isStared }}), this.loadEmails)
   }
 
@@ -50,8 +52,32 @@ export class MailApp extends React.Component {
     this.setState({ isShowCompose: !this.state.isShowCompose})
   }
 
+  onExpandEmail = (emailId) => {
+    this.props.history.push(this.props.location.pathname + '/' + emailId);
+  }
+
+  onReplyEmail = (emailId) => {
+    this.onExpandEmail(emailId)
+    this.setState({ isShowCompose: true })
+  }
+
+  onRemoveEmail = (emailId) => {
+    emailService.removeEmail(emailId).then(() => {
+      this.loadEmails()
+      this.props.history.push('/mailapp')
+    })
+  }
+
+  onToggleField = (emailId, field) => {
+    emailService.updateEmail(emailId, field).then((email) => {
+      console.log(email);
+      this.loadEmails()
+    })
+  }
+
   render() {
     const { emails , criteria , isShowCompose} = this.state
+    const { emailId } = this.props.match.params
     // console.log(criteria);
 
     return (
@@ -61,12 +87,19 @@ export class MailApp extends React.Component {
             <img src="assets/imgs/apps/mail/plus.png" />
             <span> Compose</span>
           </button>
-          {isShowCompose && <EmailCompose onToggleCompose={this.onToggleCompose} loadEmails={this.loadEmails} />}
+          {isShowCompose && <EmailCompose onToggleCompose={this.onToggleCompose} loadEmails={this.loadEmails} emailId={emailId} />}
           <EmailFolderList onSetCriteria={this.onSetCriteria} activeStatus={criteria.status}/>
         </aside>
         <div className="email-container">
           <EmailFilter onSetCriteria={this.onSetCriteria} />
-          <EmailList emails={emails} loadEmails={this.loadEmails} />
+          {!emailId ? <EmailList emails={emails} 
+                                 loadEmails={this.loadEmails} 
+                                 onExpandEmail={this.onExpandEmail} 
+                                 onRemoveEmail={this.onRemoveEmail} 
+                                 onReplyEmail={this.onReplyEmail}
+                                 onToggleField={this.onToggleField}
+                                 /> :
+           <EmailDetails emailId={emailId} onReplyEmail={this.onReplyEmail} onRemoveEmail={this.onRemoveEmail} onToggleField={this.onToggleField} />}
         </div>
       </section>
     )

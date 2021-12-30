@@ -14,10 +14,24 @@
   box-shadow: 1px 1px 8px 1px #b6b6b6;
 }
 
-.email-preview-container .email-details {
+.email-preview-container .email-content {
   display: flex;
   gap: 30px;
   font-family: lato-bold;
+}
+
+.email-content .email-star {
+  border: none;
+  background-color: inherit;
+  color: gray;
+}
+
+.email-content .email-star:hover {
+  cursor: pointer;
+}
+
+.email-content .email-star.true {
+  color: gold
 }
 
 .email-preview-container .email-body {

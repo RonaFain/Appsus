@@ -5,6 +5,8 @@ export const emailService = {
   query,
   saveEmail,
   removeEmail,
+  getEmailById,
+  updateEmail
 }
 
 const STORAGE_KEY = 'mailDB'
@@ -15,7 +17,7 @@ const gEmails = [
     body: 'Would love to catch up sometimes',
     status: 'inbox',
     isRead: 'true',
-    isStared: 'true',
+    isStared: 'false',
     lables: ['important', 'romantic'],
     sentAt: 1551133930594,
     from: 'jojo@jojo.com',
@@ -27,7 +29,7 @@ const gEmails = [
     body: 'Would love to catch up sometimes',
     status: 'inbox',
     isRead: 'false',
-    isStared: 'true',
+    isStared: 'false',
     lables: ['important', 'romantic'],
     sentAt: 1551133930594,
     from: 'momo@momo.com',
@@ -39,7 +41,7 @@ const gEmails = [
     body: 'Would love to catch up sometimes',
     status: 'sent',
     isRead: 'false',
-    isStared: 'true',
+    isStared: 'false',
     lables: ['romantic'],
     sentAt: 1551133930594,
     from: 'momo@momo.com',
@@ -51,7 +53,7 @@ const gEmails = [
     body: 'Would love to catch up sometimes',
     status: 'inbox',
     isRead: 'false',
-    isStared: 'true',
+    isStared: 'false',
     lables: ['romantic'],
     sentAt: 1551133930594,
     from: 'user@appsus.com',
@@ -63,7 +65,7 @@ const gEmails = [
     body: 'Would love to catch up sometimes',
     status: 'trash',
     isRead: 'false',
-    isStared: 'true',
+    isStared: 'false',
     lables: ['romantic'],
     sentAt: 1551133930594,
     from: 'bobo@bobo.com',
@@ -94,6 +96,21 @@ function removeEmail(emailId) {
   emails = emails.filter((email) => email.id !== emailId)
   _saveEmailsToStorage(emails)
   return Promise.resolve()
+}
+
+function getEmailById(emailId) {
+  let emails = _loadEmailsFromStorage()
+  const email = emails.find(email => email.id === emailId)
+  return Promise.resolve(email)
+}
+
+function updateEmail(emailId, field) {
+  let emails = _loadEmailsFromStorage()
+  const email = emails.find(email => email.id === emailId)
+  const value = (email[field] === 'true') ? 'false' : 'true'
+  email[field] = value
+  _saveEmailsToStorage(emails)
+  return Promise.resolve(email)
 }
 
 function _addEmail(emailToSave) {

@@ -15,6 +15,7 @@
 @import "./apps/mail/email-folder-list.css";
 @import "./apps/mail/email-filter.css";
 @import "./apps/mail/email-list.css";
+@import "./apps/mail/email-details.css";
 
 /* Keep */
 @import "./apps/keep/keep-app.css";

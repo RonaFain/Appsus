@@ -13,6 +13,15 @@ export class EmailCompose extends React.Component {
 
   componentDidMount() {
     this.inputRef.current.focus()
+    this.loadEmail()
+  }
+
+  loadEmail = () => {
+    const { emailId } = this.props
+    if(!emailId) return
+    emailService.getEmailById(emailId).then(email => {
+      this.setState({email: {toUser: email.from, subject: email.subject, body: email.body }})
+    })
   }
 
   handleChange = ({ target }) => {
@@ -34,7 +43,7 @@ export class EmailCompose extends React.Component {
 
   render() {
     const { toUser, subject, body } = this.state.email
-    
+
     return (
       <section className="email-compose">
         <form onSubmit={this.onSaveEmail}>
