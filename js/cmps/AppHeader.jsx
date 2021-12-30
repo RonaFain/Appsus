@@ -1,22 +1,60 @@
+import { eventBusService } from '../services/event-bus.service.js'
+
 const { NavLink, Link, withRouter } = ReactRouterDOM
 
 class _AppHeader extends React.Component {
   state = {
     isShowMenu: false,
+    filterText: '',
+    nameApp: ''
+  }
+
+  componentDidMount() {
+    this.getNameApp()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.location.pathname !== this.props.location.pathname) {
+      this.getNameApp()
+    }
+  }
+
+  getNameApp = () => {
+    const path = this.props.location.pathname
+    const removeAfterIdx = path.indexOf('app')
+    this.setState({ nameApp: path.substring(1, removeAfterIdx) })
   }
 
   onToggleAppsMenu = () => {
     this.setState({ isShowMenu: !this.state.isShowMenu })
   }
 
+  handleChange = ({ target }) => {
+    const value = target.value
+    this.setState({ filterText: value })
+    eventBusService.emit('search', value)
+  }
+
   render() {
-    const { isShowMenu } = this.state
+    const { isShowMenu, filterText, nameApp } = this.state
+    // console.log('filterText', filterText)
 
     return (
       <header className="app-header">
         <Link to="/" className="logo">
           <h1>Appsus</h1>
         </Link>
+        {nameApp === '/' ? '' :
+          <div className="search-container">
+            <input
+              type="text"
+              name="search"
+              value={filterText}
+              placeholder= {`Search ${nameApp}`}
+              onChange={this.handleChange}
+            />
+          </div>
+        }
         <button>
           <img
             className="btn-apps"

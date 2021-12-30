@@ -11,7 +11,7 @@ export class EmailFilter extends React.Component {
         const field = target.name
         const value = target.value
         this.setState((prevState) => ({ filterBy: { ...prevState.filterBy, [field]: value}}), () => {
-            this.props.onSetFilter(this.state.filterBy)
+            this.props.onSetCriteria(this.state.filterBy)
         })
     }
 
@@ -19,12 +19,12 @@ export class EmailFilter extends React.Component {
         return (
         <section className="email-filter">
             <select name="isRead" onChange={this.handleChange}>
-                <option value="">Read/Unread</option>
+                <option value="">Read / Unread</option>
                 <option value="true">Read</option>
                 <option value="false">Unread</option>
             </select>
             <select name="isStared" onChange={this.handleChange}>
-                <option value="">Starred/Unstarred</option>
+                <option value="">Starred / Unstarred</option>
                 <option value="true">Starred</option>
                 <option value="false">Unstarred</option>
             </select>

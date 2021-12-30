@@ -1,7 +1,8 @@
 export const utilService = {
   makeId,
   capitalFirstLetter,
-  getTimeFromStamp
+  getTimeFromStamp,
+  debounce
 }
 
 function makeId(length = 6) {
@@ -25,4 +26,16 @@ function getTimeFromStamp(stamp) {
   const seconds = ('0' + date.getSeconds()).substr(-2)
   const appm = date.getHours() >= 12 ? 'PM' : 'AM'
   return `${minutes}:${seconds} ${appm}`
+}
+
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 }

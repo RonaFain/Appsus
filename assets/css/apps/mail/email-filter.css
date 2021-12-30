@@ -1,0 +1,17 @@
+.email-filter {
+  /* padding: 20px; */
+}
+
+.email-filter select {
+  font-family: lato-regular;
+  font-size: 0.9rem;
+  padding: 10px 15px;
+  margin-right: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.email-filter select option {
+  padding: 10px;
+  font-size: 0.9rem;
+}

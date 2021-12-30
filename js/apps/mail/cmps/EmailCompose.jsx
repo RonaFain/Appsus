@@ -1,3 +1,5 @@
+import { emailService } from "../services/email.service.js"
+
 export class EmailCompose extends React.Component {
   state = {
     email: {
@@ -21,12 +23,21 @@ export class EmailCompose extends React.Component {
     }))
   }
 
+  onSaveEmail = (ev) => {
+    ev.preventDefault();
+    const { email } = this.state
+    emailService.saveEmail(email).then(email => {
+      this.props.loadEmails()
+      this.props.onToggleCompose()
+    })
+  }
+
   render() {
     const { toUser, subject, body } = this.state.email
-    console.log('state compose ' , toUser, subject, body);
+    
     return (
       <section className="email-compose">
-        <form>
+        <form onSubmit={this.onSaveEmail}>
           <label htmlFor="to-user">To:</label>
           <input
             ref={this.inputRef}
@@ -50,6 +61,7 @@ export class EmailCompose extends React.Component {
             value={body}
             onChange={this.handleChange}
           />
+          <button>Send</button>
         </form>
       </section>
     )

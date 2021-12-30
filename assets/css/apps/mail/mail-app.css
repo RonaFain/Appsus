@@ -1,0 +1,28 @@
+.mail-app {
+  display: flex;
+  gap: 50px;
+  margin-top: 20px;
+  font-family: lato-regular;
+  margin-top: 50px;
+  margin-left: 70px;
+}
+
+.mail-app .aside-container {
+}
+
+.mail-app .compose-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:15px;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 12px;
+  font-size: 1rem;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.mail-app .email-container {
+  /* background-color: lightskyblue; */
+}

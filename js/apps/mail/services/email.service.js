@@ -3,6 +3,8 @@ import { storageService } from '../../../services/storage.service.js'
 
 export const emailService = {
   query,
+  saveEmail,
+  removeEmail,
 }
 
 const STORAGE_KEY = 'mailDB'
@@ -59,7 +61,7 @@ const gEmails = [
     id: utilService.makeId(),
     subject: 'Hellooooo!',
     body: 'Would love to catch up sometimes',
-    status: 'inbox',
+    status: 'trash',
     isRead: 'false',
     isStared: 'true',
     lables: ['romantic'],
@@ -78,9 +80,48 @@ _createEmails()
 
 function query(criteria = null) {
   const emails = _loadEmailsFromStorage()
-  if(!criteria) return Promise.resolve(emails)
+  if (!criteria) return Promise.resolve(emails)
   const filteredEmails = _getFilteredEmails(emails, criteria)
   return Promise.resolve(filteredEmails)
+}
+
+function saveEmail(emailToSave) {
+  return emailService.id ? _updateEmail(emailToSave) : _addEmail(emailToSave)
+}
+
+function removeEmail(emailId) {
+  let emails = _loadEmailsFromStorage()
+  emails = emails.filter((email) => email.id !== emailId)
+  _saveEmailsToStorage(emails)
+  return Promise.resolve()
+}
+
+function _addEmail(emailToSave) {
+  console.log('adddd', emailToSave)
+  let emails = _loadEmailsFromStorage()
+  let email = _createEmail(emailToSave)
+  emails = [email, ...emails]
+  _saveEmailsToStorage(emails)
+  return Promise.resolve()
+}
+
+function _updateEmail(emailToSave) {
+  console.log('updateeeeeee', emailToSave)
+}
+
+function _createEmail(emailToSave) {
+  return {
+    id: utilService.makeId(),
+    subject: emailToSave.subject,
+    body: emailToSave.body,
+    status: 'sent',
+    isRead: 'true',
+    isStared: 'false',
+    lables: [],
+    sentAt: Date.now(),
+    from: loggedinUser.email,
+    to: emailToSave.toUser,
+  }
 }
 
 function _createEmails() {
@@ -91,23 +132,40 @@ function _createEmails() {
   _saveEmailsToStorage(emails)
 }
 
-function _getUserEmails(emails) {
-  return emails.filter(email => {
-    return email.from !== loggedinUser.email
+function _getFilteredEmails(emails, criteria) {
+  let { status } = criteria
+  const allUserEmails = _getAllUserEmails(emails)
+  const toUserEmails = _getUserEmails(emails, 'to')
+  const fromUserEmails = _getUserEmails(emails, 'from')
+  if(status === 'inbox' || status === 'trash')  return _getCorrectEmails(toUserEmails, criteria)
+  else if(status === 'sent' || status === 'draft') return _getCorrectEmails(fromUserEmails, criteria)
+  else return _getCorrectEmails(allUserEmails, criteria)
+}
+
+function _getAllUserEmails(emails) {
+  return emails.filter((email) => {
+    return email.from === loggedinUser.email || email.to === loggedinUser.email
   })
 }
 
-function _getFilteredEmails(emails, criteria) {
-  let { status, txt, isRead, isStared, lables } = criteria
-  if(status === 'all') return emails
-  const userEmails = _getUserEmails(emails)
-  
-  return userEmails.filter(email => {
-    return email.status === status && 
-           email.body.includes(txt) &&
-           email.isRead === isRead &&
-           email.isStared === isStared 
+function _getUserEmails(emails, type) {
+  return emails.filter((email) => {
+    return email[type] === loggedinUser.email
   })
+}
+
+function _getCorrectEmails(emails, criteria) {
+  let { status, txt, isRead, isStared, lables } = criteria
+  status = (status === 'all') ? '' : status
+  const filter = emails.filter((email) => {
+    return (
+      email.status.includes(status) &&
+      email.body.includes(txt) &&
+      email.isRead.includes(isRead) &&
+      email.isStared.includes(isStared)
+    )
+  })
+  return filter
 }
 
 function _loadEmailsFromStorage() {

@@ -1,3 +1,5 @@
+import { eventBusService } from '../services/event-bus.service.js'
+import { utilService } from '../services/util.service.js'
 import { emailService } from '../apps/mail/services/email.service.js'
 
 import { EmailCompose } from '../apps/mail/cmps/EmailCompose.jsx'
@@ -11,23 +13,32 @@ export class MailApp extends React.Component {
     criteria: {
       status: 'inbox',
       txt: '',
-      isRead: 'false',
-      isStared: 'true',
+      isRead: '',
+      isStared: '',
       lables: [],
     },
+    isShowCompose: false
   }
 
   componentDidMount() {
     this.loadEmails()
+    this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
   }
+
+  componentWillUnmount() {
+    this.removeEventBus();
+  }
+
+  onSetCriteria = (newCriteria) => {
+    // console.log('newCriteria' , newCriteria);
+    this.setState((prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria }}), this.loadEmails)
+  }
+
+  debbouncedFunc = utilService.debounce(this.onSetCriteria, 100)
 
   loadEmails = () => {
     const { criteria } = this.state
     emailService.query(criteria).then((emails) => this.setState({ emails }))
-  }
-
-  onSetCriteriaStatus = (newStatus) => {
-    this.setState((prevState) => ({ criteria: {...prevState.criteria, status: newStatus}}), this.loadEmails)
   }
 
   onSetFilter = (filterBy) => {
@@ -35,18 +46,28 @@ export class MailApp extends React.Component {
     this.setState(prevState => ({criteria: {...prevState, isRead: filterBy.isRead, isStared: filterBy.isStared }}), this.loadEmails)
   }
 
+  onToggleCompose = () => {
+    this.setState({ isShowCompose: !this.state.isShowCompose})
+  }
+
   render() {
-    const { emails , criteria } = this.state
+    const { emails , criteria , isShowCompose} = this.state
     // console.log(criteria);
 
     return (
-      <section className="mail-app">
-        <aside>
-          <EmailCompose />
-          <EmailFolderList onSetCriteriaStatus={this.onSetCriteriaStatus}/>
+      <section className="mail-app main-layout">
+        <aside className="aside-container">
+          <button className="compose-btn" onClick={this.onToggleCompose}>
+            <img src="assets/imgs/apps/mail/plus.png" />
+            <span> Compose</span>
+          </button>
+          {isShowCompose && <EmailCompose onToggleCompose={this.onToggleCompose} loadEmails={this.loadEmails} />}
+          <EmailFolderList onSetCriteria={this.onSetCriteria} activeStatus={criteria.status}/>
         </aside>
-        <EmailFilter onSetFilter={this.onSetFilter} />
-        <EmailList emails={emails} />
+        <div className="email-container">
+          <EmailFilter onSetCriteria={this.onSetCriteria} />
+          <EmailList emails={emails} loadEmails={this.loadEmails} />
+        </div>
       </section>
     )
   }
