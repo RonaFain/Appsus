@@ -16,3 +16,5 @@
 /* Keep */
 @import "./apps/keep/keep-app.css";
 @import "./apps/keep/dynamic-note.css";
+@import "./apps/keep/pick-note-color.css";
+@import "./apps/keep/todos-note.css";

@@ -16,7 +16,6 @@ export class KeepApp extends React.Component {
     }
 
     loadNotes = () => {
-        console.log('check')
         notesService.query().then(notes => {
             this.setState({ notes })
         })
@@ -35,7 +34,7 @@ export class KeepApp extends React.Component {
                  loadNotes={this.loadNotes} toggleNewNoteModal={this.toggleNewNoteModal}/>}
                 <section className="notes-list">
                     {notes.map(note => (
-                        <DynamicNote key={note.id} note={note} />
+                        <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
                     ))}
                 </section>
             </section>
