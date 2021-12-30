@@ -1,0 +1,16 @@
+.new-note-info{
+    margin-top: 50px;
+}
+
+.new-note-info .new-note-form{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    gap: 20px;
+}
+
+.new-note-info .new-note-form button{
+    width: fit-content;
+    margin: auto;
+}

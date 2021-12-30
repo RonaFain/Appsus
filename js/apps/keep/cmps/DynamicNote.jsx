@@ -3,14 +3,17 @@ import { notesService } from "../services/note.service.js"
 import { TxtNote } from "./TxtNote.jsx"
 import { ImgNote } from "./ImgNote.jsx"
 import { TodosNote } from "./TodosNote.jsx"
+import { VideoNote } from "./VideoNote.jsx"
 import { PickNoteColor } from "./PickNoteColor.jsx"
+import { EditNoteModal } from "./EditNoteModal.jsx"
 
 
 export class DynamicNote extends React.Component {
 
     state = {
         note: null,
-        isColorMenuOn: false
+        isColorMenuOn: false,
+        isEditModalOn: false
     }
 
     componentDidMount() {
@@ -22,10 +25,10 @@ export class DynamicNote extends React.Component {
         this.setState({ note })
     }
 
-    onToggleTodo = (noteId,todoId) => {
-     notesService.toggleTodo(noteId,todoId).then((note) =>{
-         this.setState({note})
-     })
+    onToggleTodo = (noteId, todoId) => {
+        notesService.toggleTodo(noteId, todoId).then((note) => {
+            this.setState({ note })
+        })
     }
 
     onDeleteNote = (noteId) => {
@@ -51,7 +54,7 @@ export class DynamicNote extends React.Component {
     onTogglePin = (noteId) => {
         notesService.togglePin(noteId).then((note) => {
             this.setState({ note },
-            this.props.loadNotes()
+                this.props.loadNotes()
             )
         })
     }
@@ -60,23 +63,38 @@ export class DynamicNote extends React.Component {
         this.setState({ isColorMenuOn: !this.state.isColorMenuOn })
     }
 
+    onToggleEditModal = () => {
+        this.setState({ isEditModalOn: !this.state.isEditModalOn })
+    }
+
+    onSaveEdit = (ev, note) => {
+        ev.preventDefault()
+        notesService.saveEdit(note).then(
+            this.setState({note}),
+            this.onToggleEditModal()
+        )
+    }
+
 
     render() {
-        const { note, isColorMenuOn } = this.state
+        const { note, isColorMenuOn, isEditModalOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
         const { isPinned } = note
         return (
             <section className="dynamic-note" style={{ backgroundColor: note.style.backgroundColor }}>
                 {note.type === 'note-txt' && <TxtNote note={note} />}
+                {note.type === 'note-video' && <VideoNote note={note} />}
                 {note.type === 'note-img' && <ImgNote note={note} />}
                 {note.type === 'note-todos' && <TodosNote note={note} onToggleTodo={this.onToggleTodo} />}
                 <section className="note-btns">
                     <button title="Delete" onClick={() => this.onDeleteNote(note.id)}><img src="assets/imgs/svgs/delete.svg" /></button>
                     <button title="Duplicate" onClick={() => this.onDuplicateNote(note.id)}><img src="assets/imgs/duplicate.png" /></button>
+                    <button title="Edit" onClick={this.onToggleEditModal}><img src="assets/imgs/edit1.png" /></button>
                     <button title="Send as mail"><img src="assets/imgs/mail-close.png" /></button>
                     <button title={isPinned ? "Unpin" : "Pin"} onClick={() => this.onTogglePin(note.id)}><img src={isPinned ? "assets/imgs/pinned.png" : "assets/imgs/unpinned.png"} /></button>
                     <button title="Change color" onClick={() => this.onToggleColorMenu(note.id)}><img src="assets/imgs/change-color.png" /></button>
                     {isColorMenuOn && <PickNoteColor noteId={note.id} onChangeBgc={this.onChangeBgc} />}
+                    {isEditModalOn && <EditNoteModal note={note} onToggleEditModal={this.onToggleEditModal} onSaveEdit={this.onSaveEdit}/>}
                 </section>
             </section>
         )

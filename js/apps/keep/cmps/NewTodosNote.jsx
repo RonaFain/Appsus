@@ -7,7 +7,7 @@ export class NewTodosNote extends React.Component {
             type: this.props.type,
             isPinned: false,
             info: {
-                label: '',
+                title: '',
                 todos: ''
             },
             style: {
@@ -30,13 +30,13 @@ export class NewTodosNote extends React.Component {
 
     render() {
         const { note } = this.state
-        const { label, todos } = this.state.note.info
+        const { title, todos } = this.state.note.info
         const { onSaveNote } = this.props
         return (
-            <section className="new-todos-note-info">
-                <form className="new-todosnote-form" onSubmit={() => onSaveNote(event, note)}>
+            <section className="new-note-info">
+                <form className="new-note-form" onSubmit={() => onSaveNote(ev, note)}>
                     <label htmlFor="label">Enter Note Label </label>
-                    <input type="text" id="label" name='label' value={label}
+                    <input type="text" id="label" name='label' value={title}
                         placeholder="Enter title here" onChange={this.handleChange} />
                     
                     <label htmlFor="todos">Enter Todos </label>

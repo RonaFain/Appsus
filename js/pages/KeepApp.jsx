@@ -29,7 +29,7 @@ export class KeepApp extends React.Component {
         const { notes, isNewNoteModalOn } = this.state
         return (
             <section className="keep-app">
-                <button onClick={this.toggleNewNoteModal}>create new note</button>
+                <button className="new-note-btn" onClick={this.toggleNewNoteModal}>create new note</button>
                 {isNewNoteModalOn && <NewNoteModal toggleNewNoteModal={this.toggleNewNoteModal}
                  loadNotes={this.loadNotes} toggleNewNoteModal={this.toggleNewNoteModal}/>}
                 <section className="notes-list">
