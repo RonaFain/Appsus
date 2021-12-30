@@ -3,7 +3,12 @@ import { storageService } from '../../../services/storage.service.js'
 
 export const notesService = {
     query,
-    saveNote
+    saveNote,
+    deleteNote,
+    duplicateNote,
+    changeBgc,
+    togglePin,
+    toggleTodo
 }
 
 
@@ -14,7 +19,7 @@ const gNotes = [
     {
         id: utilService.makeId(),
         type: "note-txt",
-        isPinned: true,
+        isPinned: false,
         info: {
             title: 'My Text',
             txt: "Fullstack Me Baby!"
@@ -26,6 +31,7 @@ const gNotes = [
     {
         id: utilService.makeId(),
         type: "note-img",
+        isPinned: false,
         info: {
             url: "assets/imgs/sahar.jpg",
             title: "Bobi and Me"
@@ -37,6 +43,7 @@ const gNotes = [
     {
         id: utilService.makeId(),
         type: "note-todos",
+        isPinned: false,
         info: {
             label: "Get my stuff together",
             todos: [
@@ -48,7 +55,7 @@ const gNotes = [
                 {
                     id: utilService.makeId(),
                     txt: "Coding power",
-                    doneAt: 187111111
+                    doneAt: null
                 }
             ]
         },
@@ -67,11 +74,70 @@ function query(filterBy = null) {
     return Promise.resolve(filteredNotes)
 }
 
+function toggleTodo(noteId, todoId) {
+    const notes = _loadNotesFromStorage()
+    const note = notes.find(note => {
+        return note.id === noteId
+    })
+    const todo = note.info.todos.find(todo => {
+        return todo.id === todoId
+    })
+    if (!todo.doneAt) todo.doneAt = new Date()
+    else todo.doneAt = null
+    _saveNotesToStorage(notes)
+    return Promise.resolve(note)
+}
 
-function saveNote(note){
-    note.id = utilService.makeId()
+function togglePin(noteId) {
     let notes = _loadNotesFromStorage()
-    notes = [note,...notes]
+    const note = notes.find(note => {
+        return note.id === noteId
+    })
+    const noteIdx = notes.findIndex(note => note.id === noteId)
+    const noteToMove = notes.splice(noteIdx, 1)[0]
+    if (!note.isPinned) notes = [noteToMove, ...notes]
+    else notes = [...notes, noteToMove]
+    noteToMove.isPinned = !noteToMove.isPinned
+    _saveNotesToStorage(notes)
+    return Promise.resolve(noteToMove)
+}
+
+function changeBgc(noteId, color) {
+    const notes = _loadNotesFromStorage()
+    const note = notes.find(note => note.id === noteId)
+    note.style.backgroundColor = color
+    _saveNotesToStorage(notes)
+    return Promise.resolve(note)
+}
+
+function duplicateNote(noteId) {
+    let notes = _loadNotesFromStorage()
+    const noteIdx = notes.findIndex(note => noteId === note.id)
+    const note = JSON.parse(JSON.stringify(notes[noteIdx]))
+    note.id = utilService.makeId()
+    notes.splice(noteIdx, 0, note)
+    _saveNotesToStorage(notes)
+    return Promise.resolve()
+}
+
+function deleteNote(noteId) {
+    let notes = _loadNotesFromStorage()
+    notes = notes.filter(note => noteId !== note.id)
+    _saveNotesToStorage(notes)
+    return Promise.resolve()
+}
+
+function saveNote(note) {
+    note.id = utilService.makeId()
+    if (note.type === 'note-todos') {
+        const todosArr = note.info.todos
+        const todos = todosArr.map(todo => {
+            return { id: utilService.makeId(), txt: todo }
+        })
+        note.info.todos = todos
+    }
+    let notes = _loadNotesFromStorage()
+    notes = [note, ...notes]
     _saveNotesToStorage(notes)
     return Promise.resolve()
 }

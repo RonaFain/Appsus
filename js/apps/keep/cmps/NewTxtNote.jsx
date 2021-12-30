@@ -31,7 +31,7 @@ export class NewTxtNote extends React.Component {
                 <form className="new-txtnote-form" onSubmit={() => onSaveNote(event,note)}>
                     <label htmlFor="title">Enter Note Title </label>
                     <input type="text" id="title" name='title' value={title}
-                        placeholder="Enter Title Here" onChange={this.handleChange} />
+                        placeholder="Enter title here" onChange={this.handleChange} />
 
                     <textarea name="txt" id="txt" cols="30" rows="10"
                         value={txt} onChange={this.handleChange}></textarea>
