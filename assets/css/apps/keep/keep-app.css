@@ -1,6 +1,10 @@
-.notes-list{
-    display: flex;
-    gap: 10px;
+.keep-app{
     width: fit-content;
     margin: 50px auto;
+    column-count: 3;
+}
+
+.notes-list{
+    margin: auto;
+    column-count: 3;
 }

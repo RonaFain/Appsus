@@ -27,8 +27,8 @@ export class NewTxtNote extends React.Component {
         const { title, txt } = this.state.note.info
         const {onSaveNote} = this.props
         return (
-            <section className="new-txt-note-info">
-                <form className="new-txtnote-form" onSubmit={() => onSaveNote(event,note)}>
+            <section className="new-note-info">
+                <form className="new-note-form" onSubmit={() => onSaveNote(event,note)}>
                     <label htmlFor="title">Enter Note Title </label>
                     <input type="text" id="title" name='title' value={title}
                         placeholder="Enter title here" onChange={this.handleChange} />

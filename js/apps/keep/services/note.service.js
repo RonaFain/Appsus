@@ -8,7 +8,8 @@ export const notesService = {
     duplicateNote,
     changeBgc,
     togglePin,
-    toggleTodo
+    toggleTodo,
+    saveEdit
 }
 
 
@@ -45,7 +46,7 @@ const gNotes = [
         type: "note-todos",
         isPinned: false,
         info: {
-            label: "Get my stuff together",
+            title: "Get my stuff together",
             todos: [
                 {
                     id: utilService.makeId(),
@@ -76,12 +77,8 @@ function query(filterBy = null) {
 
 function toggleTodo(noteId, todoId) {
     const notes = _loadNotesFromStorage()
-    const note = notes.find(note => {
-        return note.id === noteId
-    })
-    const todo = note.info.todos.find(todo => {
-        return todo.id === todoId
-    })
+    const note = notes.find(note => noteId === note.id)
+    const todo = note.info.todos.find(todo => todo.id === todoId)
     if (!todo.doneAt) todo.doneAt = new Date()
     else todo.doneAt = null
     _saveNotesToStorage(notes)
@@ -90,9 +87,7 @@ function toggleTodo(noteId, todoId) {
 
 function togglePin(noteId) {
     let notes = _loadNotesFromStorage()
-    const note = notes.find(note => {
-        return note.id === noteId
-    })
+    const note = notes.find(note => note.id === noteId)
     const noteIdx = notes.findIndex(note => note.id === noteId)
     const noteToMove = notes.splice(noteIdx, 1)[0]
     if (!note.isPinned) notes = [noteToMove, ...notes]
@@ -127,6 +122,15 @@ function deleteNote(noteId) {
     return Promise.resolve()
 }
 
+function saveEdit(note){
+    let notes = _loadNotesFromStorage()
+    const noteId = note.id
+    const noteIdx = notes.findIndex(note => note.id = noteId)
+    notes[noteIdx] = note
+    _saveNotesToStorage(notes)
+    return Promise.resolve(note)
+}
+
 function saveNote(note) {
     note.id = utilService.makeId()
     if (note.type === 'note-todos') {
@@ -135,6 +139,10 @@ function saveNote(note) {
             return { id: utilService.makeId(), txt: todo }
         })
         note.info.todos = todos
+    }
+    if(note.type === 'note-video') {
+        const youtubeId = utilService.getYoutubeId(note.info.url)
+        note.info.url = `https://www.youtube.com/embed/${youtubeId}`
     }
     let notes = _loadNotesFromStorage()
     notes = [note, ...notes]
