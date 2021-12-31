@@ -13,19 +13,59 @@
 .edit-modal{
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 30%;
     transform: translate(-50%,-50%);
     background-color: rgb(255, 255, 254);
     margin: 5% auto 15% auto; 
     border: 1px solid rgb(0, 0, 0);
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 450px;
     text-align: center;
     border-radius: 10px;
+    box-shadow: inset 0px 0px 4px 1px #525151
 }
 
 .edit-modal .close-modal-btn{
     position: absolute;
-    right: 1%;
-    top: 1%;
+    right: 2%;
+    top: 2%;
+    border: none;
+    background: unset;
+    font-size: 1.2rem;
+}
+
+.edit-modal .close-modal-btn:hover{
+    transform: scale(1.1);
+}
+
+
+.edit-notes-form{
+    margin-top: 40px;
+}
+
+.edit-modal .save-edit-btn{
+    background: unset;
+    border: none;
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+}
+
+.edit-modal .save-edit-btn:hover{
+    color: blue;
+}
+
+.edit-notes-form form{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    gap: 20px;
+}
+
+.edit-notes-form form textarea{
+    max-width: 250px;
+    max-height: 250px;
 }

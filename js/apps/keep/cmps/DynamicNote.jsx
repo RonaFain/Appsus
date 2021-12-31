@@ -17,11 +17,13 @@ export class DynamicNote extends React.Component {
     }
 
     componentDidMount() {
+    //   console.log('check')
         this.loadNote()
     }
 
     loadNote = () => {
         const { note } = this.props
+        
         this.setState({ note })
     }
 
@@ -77,7 +79,7 @@ export class DynamicNote extends React.Component {
 
 
     render() {
-        const { note, isColorMenuOn, isEditModalOn } = this.state
+        const {note,isColorMenuOn, isEditModalOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
         const { isPinned } = note
         return (
@@ -94,8 +96,8 @@ export class DynamicNote extends React.Component {
                     <button title={isPinned ? "Unpin" : "Pin"} onClick={() => this.onTogglePin(note.id)}><img src={isPinned ? "assets/imgs/pinned.png" : "assets/imgs/unpinned.png"} /></button>
                     <button title="Change color" onClick={() => this.onToggleColorMenu(note.id)}><img src="assets/imgs/change-color.png" /></button>
                     {isColorMenuOn && <PickNoteColor noteId={note.id} onChangeBgc={this.onChangeBgc} />}
-                    {isEditModalOn && <EditNoteModal note={note} onToggleEditModal={this.onToggleEditModal} onSaveEdit={this.onSaveEdit}/>}
                 </section>
+                    {isEditModalOn && <EditNoteModal note={note} onToggleEditModal={this.onToggleEditModal} onSaveEdit={this.onSaveEdit}/>}
             </section>
         )
     }

@@ -1,12 +1,26 @@
 
+.color-menu-container{
+    position: relative;
+}
 
-/* .color-menu{
-    width: 100px;
-    height: 100px;
-} */
+.color-menu{
+    display: flex;
+    position: absolute;
+    bottom: 5px;
+    gap: 5px;
+    background: white;
+    padding: 5px;
+    width:200px ;
+    justify-content: space-evenly;
+}
 
 .color-menu .color-input{
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    cursor: pointer;
+}
+
+.color-menu .color-input:hover{
+    transform: scale(1.1);
 }

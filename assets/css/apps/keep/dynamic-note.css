@@ -1,6 +1,5 @@
 .dynamic-note{
     width: 300px;
-    /* height: fit-content; */
     padding: 20px;
     position: relative;
     box-shadow: inset 0px 0px 5px 0px black;
@@ -18,11 +17,10 @@
 .dynamic-note .note-btns button{
     background-color: unset;
     border: none;
-    cursor: pointer;
     margin: 5px;
 }
 
-.dynamic-note button:hover{
+.dynamic-note .note-btns button:hover{
     transform: scale(1.1);
 }
 
@@ -32,4 +30,9 @@
 
 .note{
     margin-bottom: 30px;
+}
+
+.note h2 {
+    text-align: center;
+    margin-bottom: 10px;
 }

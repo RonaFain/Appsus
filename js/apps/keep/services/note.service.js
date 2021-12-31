@@ -9,12 +9,13 @@ export const notesService = {
     changeBgc,
     togglePin,
     toggleTodo,
-    saveEdit
+    saveEdit,
+    _saveNotesToStorage,
+    _loadNotesFromStorage
 }
 
 
 const STORAGE_KEY = 'notesDB'
-
 
 const gNotes = [
     {
@@ -71,8 +72,19 @@ _createNotes()
 function query(filterBy = null) {
     const notes = _loadNotesFromStorage()
     if (!filterBy) return Promise.resolve(notes)
-    const filteredNotes = _getFilteredCars(notes, filterBy)
+    const filteredNotes = _getFilteredNotes(notes, filterBy)
+    // console.log(filteredNotes)
     return Promise.resolve(filteredNotes)
+}
+
+function _getFilteredNotes(notes,filterBy) {
+    const {type} = filterBy
+    if (type === 'all') return notes
+    const filteredNotes = notes.filter(note => { 
+        return note.type === `note-${type}`
+    })
+    // console.log(filteredNotes)
+    return filteredNotes
 }
 
 function toggleTodo(noteId, todoId) {
@@ -123,9 +135,10 @@ function deleteNote(noteId) {
 }
 
 function saveEdit(note){
+    // if(note.type === 'note-todos') return Promise.resolve(note)
     let notes = _loadNotesFromStorage()
     const noteId = note.id
-    const noteIdx = notes.findIndex(note => note.id = noteId)
+    const noteIdx = notes.findIndex(note => note.id === noteId)
     notes[noteIdx] = note
     _saveNotesToStorage(notes)
     return Promise.resolve(note)
@@ -157,25 +170,6 @@ function _createNotes() {
         _saveNotesToStorage(gNotes)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function _saveNotesToStorage(notes) {

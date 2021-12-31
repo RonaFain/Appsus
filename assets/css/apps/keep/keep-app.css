@@ -4,6 +4,20 @@
     column-count: 3;
 }
 
+.new-note-btn{
+    text-align: center;
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    font-size: 1.5rem;
+    border: none;
+    background: unset;
+}
+
+.new-note-btn:hover{
+    color: blue;
+}
+
 .notes-list{
     margin: auto;
     column-count: 3;

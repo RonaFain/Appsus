@@ -1,0 +1,21 @@
+
+.filter-by{
+    display: flex;
+    width: 550px;
+    margin: 40px auto;
+}
+
+.filter-by h2{
+    font-size: 2rem;
+}
+
+.filter-by .filter-btns{
+    display: flex;
+    gap: 5px;
+}
+
+.filter-by .filter-btns button{
+    width: 50px;
+    background: unset;
+    border: none;
+}
