@@ -8,6 +8,7 @@
 @import "./cmps/app-footer.css";
 @import "./cmps/home.css";
 @import "./cmps/nav-to-app.css";
+@import "./cmps/user-msg.css";
 
 /* Mail */
 @import "./apps/mail/mail-app.css";
@@ -16,6 +17,8 @@
 @import "./apps/mail/email-filter.css";
 @import "./apps/mail/email-list.css";
 @import "./apps/mail/email-details.css";
+@import "./apps/mail/email-compose.css";
+@import "./apps/mail/email-expand-preview.css";
 
 /* Keep */
 @import "./apps/keep/keep-app.css";
@@ -25,3 +28,14 @@
 @import "./apps/keep/new-note-modal.css";
 @import "./apps/keep/new-note-form.css";
 @import "./apps/keep/edit-note-modal.css";
+
+/* Book */
+@import './apps/book/book-app.css';
+@import './apps/book/book-list.css';
+@import './apps/book/book-preview.css';
+@import './apps/book/book-filter.css';
+@import './apps/book/long-txt.css';
+@import './apps/book/book-details.css';
+@import './apps/book/star-rating.css';
+@import './apps/book/review-add.css';
+@import './apps/book/book-add.css';

@@ -1,6 +1,6 @@
-import { utilService } from '../services/util.service.js';
-import { bookService } from '../services/book.service.js';
-import { eventBusService } from '../services/event-bus.service.js';
+import { utilService } from '../../../services/util.service.js';
+import { bookService } from '../../book/services/book.service.js';
+import { eventBusService } from '../../../services/event-bus.service.js';
 
 import { LongTxt } from '../cmps/LongTxt.jsx';
 import { Loader } from '../cmps/Loader.jsx';
@@ -28,7 +28,7 @@ export class BookDetails extends React.Component {
   loadBook = () => {
     const { bookId } = this.props.match.params;
     bookService.getBookById(bookId).then((book) => {
-      if (!book) return this.props.history.push('/');
+      if (!book) return this.props.history.push('/bookapp');
       this.setState({ book });
     });
   };
@@ -53,7 +53,7 @@ export class BookDetails extends React.Component {
   };
 
   onGoBack = () => {
-    this.props.history.push('/bookapp/book');
+    this.props.history.push('/bookapp');
   };
 
   onRemoveBook = () => {
@@ -91,7 +91,7 @@ export class BookDetails extends React.Component {
     const className = amount > 150 ? 'red' : amount < 20 ? 'green' : '';
 
     return (
-      <section>
+      <section style={{backgroundColor: '#f6ecf0'}}>
         <div className="book-details">
           <div className="img-container">
             <img src={thumbnail} />
@@ -103,8 +103,8 @@ export class BookDetails extends React.Component {
             <button onClick={this.onGoBack}>Go back</button>
             <button onClick={this.onRemoveBook}>Remove book</button>
             <div className="pagination-container">
-              <Link className="pagination-btn" to={`/bookapp/book/${bookService.getNextBookId(id, -1)}`}>&larr; Previous Book</Link>
-              <Link className="pagination-btn" to={`/bookapp/book/${bookService.getNextBookId(id, 1)}`}>Next Book &rarr;</Link>
+              <Link className="pagination-btn" to={`/bookapp/${bookService.getNextBookId(id, -1)}`}>&larr; Previous Book</Link>
+              <Link className="pagination-btn" to={`/bookapp/${bookService.getNextBookId(id, 1)}`}>Next Book &rarr;</Link>
             </div>
             <hr />
             <h4>Categories: {categories.join(', ')}</h4>

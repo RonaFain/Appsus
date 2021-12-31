@@ -30,13 +30,22 @@ class _EmailDetails extends React.Component {
     return (
       <section className="email-deatils">
         <div className="email-details-tools">
-          <button onClick={this.goBack}>Back</button>
+          <button onClick={this.goBack} title={'Go back'}><i className="fas fa-arrow-left"></i></button>
           <div className="tools-btns">
-              <button onClick={() => onReplyEmail()}>reply</button>
-              <button onClick={() => onRemoveEmail(email.id)}>delete</button>
-              <button>Mark as unread</button>
-              <button>Export to note</button>
-              <button onClick={() => onToggleField(email.id, 'isStared')} className={`email-star ${email.isStared}`}><i className="fas fa-star"></i></button>
+              {email.status === 'inbox' && 
+                <button onClick={() => onReplyEmail()} title={'Reply'}>
+                    <i className="fas fa-reply"></i>
+                </button>
+              }
+              <button onClick={() => onRemoveEmail(null, email.id)} title={'Delete'}><i className="fas fa-trash-alt"></i></button>
+              <button onClick={(ev) => onToggleField(ev, email.id, 'isRead')} title={email.isRead ? 'Mark as unread' : 'Mark as read'}>
+                <i className={`fas fa-envelope${email.isRead ? '-open' : ''}`}></i>
+              </button>
+              <button title={'Export to note'}><i className="fas fa-sticky-note"></i></button>
+              <button onClick={(ev) => onToggleField(ev, email.id, 'isStarred')} className={`email-star ${email.isStarred}`} 
+                      title={email.isStarred ? 'Mark as unstarred' : 'Mark as starred'}>
+                      <i className="fas fa-star"></i>
+              </button>
           </div>
         </div>
         <div className="email-details-content">

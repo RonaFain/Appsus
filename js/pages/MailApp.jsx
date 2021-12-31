@@ -14,11 +14,14 @@ export class MailApp extends React.Component {
     criteria: {
       status: 'inbox',
       txt: '',
-      isRead: '',
-      isStared: '',
-      lables: [],
+      isRead: undefined,
+      isStarred: undefined,
     },
-    isShowCompose: false
+    isShowCompose: false,
+    sort: {
+      type: 'byDate',
+      order: 1
+    }
   }
 
   componentDidMount() {
@@ -31,21 +34,16 @@ export class MailApp extends React.Component {
   }
 
   onSetCriteria = (newCriteria) => {
-    // console.log('newCriteria' , newCriteria);
     this.setState((prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria }}), this.loadEmails)
   }
 
-  debbouncedFunc = utilService.debounce(this.onSetCriteria, 100)
+  debbouncedFunc = utilService.debounce(this.onSetCriteria, 50)
 
   loadEmails = () => {
-    const { criteria } = this.state
-    emailService.query(criteria).then((emails) => {
+    const { criteria , sort } = this.state
+    emailService.query(criteria, sort).then((emails) => {
       this.setState({ emails })
       this.props.history.push('/mailapp')})
-  }
-
-  onSetFilter = (filterBy) => {
-    this.setState(prevState => ({criteria: {...prevState, isRead: filterBy.isRead, isStared: filterBy.isStared }}), this.loadEmails)
   }
 
   onToggleCompose = () => {
@@ -56,21 +54,47 @@ export class MailApp extends React.Component {
     this.props.history.push(this.props.location.pathname + '/' + emailId);
   }
 
-  onReplyEmail = (emailId) => {
+  onReplyEmail = (ev, emailId) => {
+    if(ev) ev.stopPropagation();
     this.onExpandEmail(emailId)
     this.setState({ isShowCompose: true })
   }
 
-  onRemoveEmail = (emailId) => {
-    emailService.removeEmail(emailId).then(() => {
+  onRemoveEmail = (ev, emailId) => {
+    if(ev) ev.stopPropagation()
+    emailService.removeEmail(emailId).then((email) => {
       this.loadEmails()
+      eventBusService.emit('user-msg', { txt: 'The mail moved to trash' , type: 'danger' })
       this.props.history.push('/mailapp')
     })
   }
 
-  onToggleField = (emailId, field) => {
+  onToggleField = (ev, emailId, field) => {
+    if(ev) ev.stopPropagation();
     emailService.updateEmail(emailId, field).then((email) => {
-      console.log(email);
+      const message = this.getUserMessage(field , email[field])
+      eventBusService.emit('user-msg', { txt: message, type: 'success' })
+      this.loadEmails()
+    })
+  }
+
+  getUserMessage = (field , value) => {
+    if(field === 'isRead') return 'Mark as unread/read'
+    else return 'Mark as unstarred/starred'
+  }
+
+  onSetSort = ({ target }) => {
+    const sortBy = target.name
+    const sort = { type: sortBy , order: 1}
+    this.setState((prevState) => {
+      if(prevState.sort.type === sortBy) sort.order = prevState.sort.order * -1
+      return { sort }
+    }, this.loadEmails)
+  }
+
+  onSetReadEmail = (email) => {
+    emailService.updateEmailToRead(email.id).then((email) => {
+      eventBusService.emit('user-msg', { txt: 'Mark as read', type: 'success' })
       this.loadEmails()
     })
   }
@@ -78,7 +102,7 @@ export class MailApp extends React.Component {
   render() {
     const { emails , criteria , isShowCompose} = this.state
     const { emailId } = this.props.match.params
-    // console.log(criteria);
+    // console.log('criteria' , criteria);
 
     return (
       <section className="mail-app main-layout">
@@ -91,13 +115,14 @@ export class MailApp extends React.Component {
           <EmailFolderList onSetCriteria={this.onSetCriteria} activeStatus={criteria.status}/>
         </aside>
         <div className="email-container">
-          <EmailFilter onSetCriteria={this.onSetCriteria} />
+          <EmailFilter onSetCriteria={this.onSetCriteria} onSetSort={this.onSetSort} />
           {!emailId ? <EmailList emails={emails} 
                                  loadEmails={this.loadEmails} 
                                  onExpandEmail={this.onExpandEmail} 
                                  onRemoveEmail={this.onRemoveEmail} 
                                  onReplyEmail={this.onReplyEmail}
                                  onToggleField={this.onToggleField}
+                                 onSetReadEmail={this.onSetReadEmail}
                                  /> :
            <EmailDetails emailId={emailId} onReplyEmail={this.onReplyEmail} onRemoveEmail={this.onRemoveEmail} onToggleField={this.onToggleField} />}
         </div>

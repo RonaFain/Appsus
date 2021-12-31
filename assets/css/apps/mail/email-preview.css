@@ -8,6 +8,7 @@
   border-bottom: 1px solid #e5e5e5;
   cursor: pointer;
   transition: .4s;
+  min-width: 1000px;
 }
 
 .email-preview-container:hover {
@@ -37,5 +38,18 @@
 .email-preview-container .email-body {
   font-family: lato-regular;
   flex-grow: 1;
-  min-width: 600px;
+  /* width: fit-content; */
+  /* min-width: 600px; */
+}
+
+.email-preview.read {
+  background-color: #e5e5e571;
+}
+
+
+.email-preview-container .options-btn button {
+  border: none;
+  background-color: inherit;
+  padding: 0 10px;
+  cursor: pointer;
 }

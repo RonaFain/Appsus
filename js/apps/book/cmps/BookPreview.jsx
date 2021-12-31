@@ -1,10 +1,10 @@
-import { utilService } from '../services/util.service.js';
+import { utilService } from '../../../services/util.service.js';
 
 const { Link } = ReactRouterDOM;
 
 export function BookPreview({ book }) {
   return (
-    <Link to={`/bookapp/book/${book.id}`} className="book-preview">
+    <Link to={`/bookapp/${book.id}`} className="book-preview">
       <article >
         <div className="image-container">
           <img src={book.thumbnail} />

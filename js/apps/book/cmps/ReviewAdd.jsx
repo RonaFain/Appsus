@@ -1,7 +1,7 @@
 import { bookService } from '../services/book.service.js';
-import { eventBusService } from '../services/event-bus.service.js';
+import { eventBusService } from '../../../services/event-bus.service.js';
 
-import { StarRating } from '../cmps/StarRating.jsx';
+import { StarRating } from './StarRating.jsx';
 
 export class ReviewAdd extends React.Component {
   state = {

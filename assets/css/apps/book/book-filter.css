@@ -1,0 +1,19 @@
+.book-filter label {
+  margin: 0 10px;
+}
+
+.book-filter button {
+  margin: 0 10px;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: whitesmoke;
+  padding: 7px 20px;
+  font-weight: 700;
+  color: #bb8082;
+}
+
+.book-filter button:hover {
+  background-color: #bb8082;
+  opacity: 0.8;
+  color: black;
+}

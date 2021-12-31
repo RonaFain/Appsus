@@ -1,7 +1,7 @@
 export function Loader() {
     return (
         <div className="loader">
-            <img src="../assets/img/loader.svg" alt="" />
+            <img src="assets/imgs/svgs/loader.svg" alt="" />
         </div>
     )
 }

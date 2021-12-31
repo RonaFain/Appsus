@@ -7,6 +7,7 @@ export function EmailList({
   onRemoveEmail,
   onReplyEmail,
   onToggleField,
+  onSetReadEmail
 }) {
   if (!emails || !emails.length) return <h1>There are no emails</h1>
   return (
@@ -20,6 +21,7 @@ export function EmailList({
           onRemoveEmail={onRemoveEmail}
           onReplyEmail={onReplyEmail}
           onToggleField={onToggleField}
+          onSetReadEmail={onSetReadEmail}
         />
       ))}
     </section>

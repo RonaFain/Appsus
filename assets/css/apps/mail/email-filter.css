@@ -1,8 +1,8 @@
-.email-filter {
+.email-filter-sort {
   /* padding: 20px; */
 }
 
-.email-filter select {
+.email-filter-sort select {
   font-family: lato-regular;
   font-size: 0.9rem;
   padding: 10px 15px;
@@ -11,7 +11,7 @@
   cursor: pointer;
 }
 
-.email-filter select option {
+.email-filter-sort select option {
   padding: 10px;
   font-size: 0.9rem;
 }

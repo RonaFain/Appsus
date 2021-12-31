@@ -1,8 +1,9 @@
-import { emailService } from "../services/email.service.js"
+import { emailService } from '../services/email.service.js'
 
 export class EmailCompose extends React.Component {
   state = {
     email: {
+      id: '',
       toUser: '',
       subject: '',
       body: '',
@@ -18,9 +19,14 @@ export class EmailCompose extends React.Component {
 
   loadEmail = () => {
     const { emailId } = this.props
-    if(!emailId) return
-    emailService.getEmailById(emailId).then(email => {
-      this.setState({email: {toUser: email.from, subject: email.subject, body: email.body }})
+    if (!emailId) return
+    emailService.getEmailById(emailId).then((email) => {
+      const setId = email.status === 'draft' ? email.id : ''
+      console.log(email.status, setId)
+      this.setState({
+        email: { toUser: email.from, subject: email.subject, body: email.body,
+                  id: setId},
+      })
     })
   }
 
@@ -32,10 +38,10 @@ export class EmailCompose extends React.Component {
     }))
   }
 
-  onSaveEmail = (ev) => {
-    ev.preventDefault();
+  onSaveEmail = (ev, status) => {
+    ev.preventDefault()
     const { email } = this.state
-    emailService.saveEmail(email).then(email => {
+    emailService.saveEmail(email, status).then((email) => {
       this.props.loadEmails()
       this.props.onToggleCompose()
     })
@@ -46,31 +52,43 @@ export class EmailCompose extends React.Component {
 
     return (
       <section className="email-compose">
-        <form onSubmit={this.onSaveEmail}>
-          <label htmlFor="to-user">To:</label>
-          <input
-            ref={this.inputRef}
-            name="toUser"
-            type="text"
-            id="to-user"
-            value={toUser}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="subject">Subject:</label>
-          <input
-            name="subject"
-            type="text"
-            id="subject"
-            value={subject}
-            onChange={this.handleChange}
-          />
+        <form onSubmit={(ev) => this.onSaveEmail(ev, 'sent')}>
+          <div className="email-compose-header" onClick={(ev) => this.onSaveEmail(ev,'draft')}>
+            <i className="fas fa-times"></i>
+          </div>
+          <div className="form-to">
+            <label htmlFor="to-user">To:</label>
+            <input
+              ref={this.inputRef}
+              name="toUser"
+              type="text"
+              id="to-user"
+              value={toUser}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-subject">
+            <label htmlFor="subject">Subject:</label>
+            <input
+              name="subject"
+              type="text"
+              id="subject"
+              value={subject}
+              onChange={this.handleChange}
+            />
+          </div>
           <textarea
             name="body"
             rows="18"
             value={body}
             onChange={this.handleChange}
           />
-          <button>Send</button>
+          <div className="form-btns">
+            <button type="submit" className="form-send-btn">Send</button>
+            <button className="form-trash-btn" onClick={this.props.onToggleCompose}>
+              <i className="fas fa-trash"></i>
+            </button>
+          </div>
         </form>
       </section>
     )

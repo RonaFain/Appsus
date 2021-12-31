@@ -3,7 +3,8 @@ export const utilService = {
   capitalFirstLetter,
   getTimeFromStamp,
   debounce,
-  getYoutubeId
+  getYoutubeId,
+  getCurrencySign
 }
 
 function makeId(length = 6) {
@@ -21,30 +22,74 @@ function capitalFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-function getTimeFromStamp(stamp) {
-  const date = new Date(stamp * 1000)
-  const minutes = ('0' + date.getMinutes()).substr(-2)
-  const seconds = ('0' + date.getSeconds()).substr(-2)
-  const appm = date.getHours() >= 12 ? 'PM' : 'AM'
-  return `${minutes}:${seconds} ${appm}`
+function getTimeFromStamp(timestamp) {
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ]
+  const months = [
+    'January',
+    'Febuary',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+  const date = new Date(timestamp)
+  const time = timeFormat(date.getHours()) + ':' + timeFormat(date.getMinutes())
+  const currTimestamp = Date.now()
+  const currDate = new Date(currTimestamp)
+  const day = 1000 * 60 * 60 * 24
+  if (currTimestamp - timestamp < day) return 'Today ' + time
+  if (currTimestamp - timestamp < day * 2) return 'Yesterday ' + time
+  if (currTimestamp - timestamp < day * 7) return days[date.getDay()]
+  if (currDate.getFullYear() !== date.getFullYear())
+    return months[date.getMonth()].slice(0, 3) + ' ' + date.getFullYear()
+  return date.getDate() + ' ' + months[date.getMonth()].slice(0, 3)
 }
 
 function debounce(func, wait) {
-  let timeout;
+  let timeout
   return function (...args) {
     const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
 }
 
 function getYoutubeId(url) {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11)
-      ? match[2]
-      : null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+  const match = url.match(regExp)
+  return match && match[2].length === 11 ? match[2] : null
+}
+
+function timeFormat(time) {
+  return time < 10 ? '0' + time : time
+}
+
+function getCurrencySign(sign) {
+  switch (sign) {
+    case 'EUR':
+      return '€'
+    case 'ILS':
+      return '₪'
+    case 'USD':
+      return '$'
+    default:
+      return ''
+  }
 }

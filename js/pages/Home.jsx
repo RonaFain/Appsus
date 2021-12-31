@@ -5,15 +5,15 @@ export class Home extends React.Component {
     apps: {
       book: {
         name: 'book',
-        details: 'bbbbbbbb',
+        details: `You'll find bestsellers, up-and-coming authors, and more all in Appsus book`,
       },
       keep: {
         name: 'keep',
-        details: 'kkkkkkkkk',
+        details: `Capture what's on your mind. Add notes, lists and photos to Appsus Keep`,
       },
       mail: {
         name: 'mail',
-        details: 'mmmmmmmm',
+        details: `Appsus mail is email that's intuitive, efficient, and useful`,
       },
     },
   }
@@ -23,7 +23,7 @@ export class Home extends React.Component {
 
     return (
       <section className="home">
-        <div className="hero">hello</div>
+        <div className="hero"><img src="assets/imgs/desk.jpg"/></div>
         <div className="nav-apps">
           <NavToApp className="first-child" app={book} />
           <NavToApp app={keep} />

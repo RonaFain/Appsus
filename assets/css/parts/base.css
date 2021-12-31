@@ -21,6 +21,10 @@ img{
   width: 100%;
 }
 
+button {
+  cursor: pointer;
+}
+
 .app {
   position: relative;
 }
