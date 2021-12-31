@@ -35,7 +35,7 @@ export class NewTxtNote extends React.Component {
 
                     <textarea name="txt" id="txt" cols="30" rows="10"
                         value={txt} onChange={this.handleChange}></textarea>
-                    <button>Save Note</button>
+                    <button className="save-new-note-btn">Save Note</button>
                 </form>
             </section>
 

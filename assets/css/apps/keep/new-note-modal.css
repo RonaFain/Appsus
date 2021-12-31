@@ -13,15 +13,16 @@
 .new-note-modal{
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 30%;
     transform: translate(-50%,-50%);
     background-color: rgb(255, 255, 254);
     margin: 5% auto 15% auto; 
     border: 1px solid rgb(0, 0, 0);
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 450px;
     text-align: center;
     border-radius: 10px;
+    box-shadow: inset 0px 0px 4px 1px #525151
 }
 
 .new-note-modal h2{
@@ -30,6 +31,23 @@
 
 .new-note-modal .close-modal-btn{
     position: absolute;
-    right: 1%;
-    top: 1%;
+    right: 2%;
+    top: 2%;
+    border: none;
+    background: unset;
+    font-size: 1.2rem;
+}
+
+.new-note-modal .close-modal-btn:hover{
+    transform: scale(1.1);
+}
+
+.save-new-note-btn {
+    background: unset;
+    border: none;
+    font-size: 1.5rem;
+}
+
+.save-new-note-btn:hover{
+    color: blue;
 }

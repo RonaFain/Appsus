@@ -32,7 +32,7 @@ export class MailApp extends React.Component {
 
   onSetCriteria = (newCriteria) => {
     // console.log('newCriteria' , newCriteria);
-    this.setState((prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria }}), this.loadEmails)
+    this.setState((prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria }}), console.log(this.state))
   }
 
   debbouncedFunc = utilService.debounce(this.onSetCriteria, 100)

@@ -36,7 +36,7 @@ export class NewImgNote extends React.Component {
                     <label htmlFor="url">Enter Your Image URL </label>
                     <input type="text" id="url" name='url' value={url}
                         placeholder="Enter URL here" onChange={this.handleChange} />
-                    <button>Save Note</button>
+                    <button className="save-new-note-btn">Save Note</button>
                 </form>
             </section>
         )
