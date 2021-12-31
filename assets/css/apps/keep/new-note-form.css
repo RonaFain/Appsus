@@ -10,6 +10,11 @@
     gap: 20px;
 }
 
+.new-note-info .new-note-form textarea{
+    max-width: 250px;
+    max-height: 170px;
+}
+
 .new-note-info .new-note-form button{
     width: fit-content;
     margin: auto;

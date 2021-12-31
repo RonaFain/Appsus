@@ -1,0 +1,42 @@
+.edit-todos-note{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    gap: 15px;
+}
+
+.edit-todos-note .toggle-add-edit-todo{
+   width: fit-content;
+   margin: auto;
+   
+}
+
+.edit-todos-note .save-todos-changes-btn{
+    background: unset;
+    border: none;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+}
+
+.edit-todos-note .save-todos-changes-btn:hover{
+    color: blue;
+}
+
+.edit-todos-note .todo-to-edit{
+    margin-bottom: 10px;
+}
+
+.edit-todos-note .todo-to-edit .remove-todo-btn{
+    border: none;
+    background: unset;
+    font-size: 1.2rem;
+}
+
+.edit-todos-note .todo-to-edit .remove-todo-btn:hover{
+    transform: scale(1.1);
+}
+

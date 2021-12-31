@@ -19,7 +19,7 @@
     margin: 5% auto 15% auto; 
     border: 1px solid rgb(0, 0, 0);
     width: 400px;
-    height: 450px;
+    min-height: 450px;
     text-align: center;
     border-radius: 10px;
     box-shadow: inset 0px 0px 4px 1px #525151
@@ -63,6 +63,10 @@
     width: fit-content;
     margin: auto;
     gap: 20px;
+}
+
+.edit-notes-form form img{
+    width: 200px;
 }
 
 .edit-notes-form form textarea{

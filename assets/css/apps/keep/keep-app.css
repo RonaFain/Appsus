@@ -1,8 +1,12 @@
+
 .keep-app{
-    width: fit-content;
-    margin: 50px auto;
-    column-count: 3;
+    font-family: lato-regular;
 }
+
+.keep-app h2{
+    font-family: lato-bold;
+}
+
 
 .new-note-btn{
     text-align: center;
@@ -18,7 +22,12 @@
     color: blue;
 }
 
+
 .notes-list{
+    padding: 20px;
+    background-color: #e5e5e5;
+    width: 1000px;
     margin: auto;
     column-count: 3;
+    column-gap: unset;
 }

@@ -19,16 +19,16 @@ export class EditTodosNote extends React.Component {
         note.info.todos[idx].txt = value
         this.setState({ note })
     }
-    
+
     handleNewTodoChange = ({ target }) => {
         const newTodoTxt = target.value
         this.setState({ newTodoTxt })
     }
-    
+
     toggleAddNewTodo = () => {
-        this.setState({isAddNewTodoOn: !this.state.isAddNewTodoOn})
+        this.setState({ isAddNewTodoOn: !this.state.isAddNewTodoOn })
     }
-    
+
     onAddTodo = (ev, note) => {
         ev.preventDefault()
         const { value } = ev.target[0]
@@ -45,7 +45,7 @@ export class EditTodosNote extends React.Component {
         }))
     }
 
-    onUpdateTodosEdit = (ev,note) => {
+    onUpdateTodosEdit = (ev, note) => {
         ev.preventDefault()
         todosService.updateTodosEdit(note).then(note => {
             this.props.onSaveEdit(ev, note)
@@ -54,27 +54,28 @@ export class EditTodosNote extends React.Component {
     }
 
     render() {
-        const { note,newTodoTxt,isAddNewTodoOn } = this.state
+        const { note, newTodoTxt, isAddNewTodoOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
         const { info } = note
         return (
-            <section>
-                <h2>{isAddNewTodoOn? 'Add new Todo' : 'Edit your todos'}</h2>
-                <button onClick={this.toggleAddNewTodo}>{isAddNewTodoOn? 'Edit existing Todos' : 'Add new Todo'}</button>
+            <section className="edit-todos-note">
+                <h2>{isAddNewTodoOn ? 'Add new Todo' : 'Edit your todos'}</h2>
+                <button className="toggle-add-edit-todo" onClick={this.toggleAddNewTodo}>{isAddNewTodoOn ? 'Edit existing Todos' : 'Add new Todo'}</button>
                 {!isAddNewTodoOn && <section className="edit-todos">
                     <form onSubmit={() => this.props.onSaveEdit(event, note)}>
                         {info.todos.map((todo, idx) => {
                             return (
-                                <div key={idx}><input type="text" value={todo.txt} onChange={() => this.handleEditedTodosChange(event, idx)} /><button onClick={() => this.onDeleteTodo(event, note, todo.id)}>x</button></div>
+                                <div className="todo-to-edit" key={idx}><input type="text" value={todo.txt} onChange={() => this.handleEditedTodosChange(event, idx)} />
+                                    <button className="remove-todo-btn" onClick={() => this.onDeleteTodo(event, note, todo.id)}>x</button></div>
                             )
                         })}
-                        <button>Save Edits</button>
+                        <button className="save-todos-changes-btn"> Save Edits</button>
                     </form>
                 </section>}
                 {isAddNewTodoOn && <section className="add-todo">
                     <form onSubmit={() => this.onAddTodo(event, note)}>
                         <input type="text" value={newTodoTxt} onChange={this.handleNewTodoChange} />
-                        <button>add Todo</button>
+                        <button className="save-todos-changes-btn">add Todo</button>
                     </form>
                 </section>}
             </section>

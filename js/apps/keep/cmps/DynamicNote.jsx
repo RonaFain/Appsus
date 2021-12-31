@@ -17,13 +17,13 @@ export class DynamicNote extends React.Component {
     }
 
     componentDidMount() {
-    //   console.log('check')
+        //   console.log('check')
         this.loadNote()
     }
 
     loadNote = () => {
         const { note } = this.props
-        
+
         this.setState({ note })
     }
 
@@ -72,33 +72,36 @@ export class DynamicNote extends React.Component {
     onSaveEdit = (ev, note) => {
         ev.preventDefault()
         notesService.saveEdit(note).then(
-            this.setState({note}),
+            this.setState({ note }),
             this.onToggleEditModal()
         )
     }
 
 
     render() {
-        const {note,isColorMenuOn, isEditModalOn } = this.state
+        const { note, isColorMenuOn, isEditModalOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
         const { isPinned } = note
         return (
-            <section className="dynamic-note" style={{ backgroundColor: note.style.backgroundColor }}>
-                {note.type === 'note-txt' && <TxtNote note={note} />}
-                {note.type === 'note-video' && <VideoNote note={note} />}
-                {note.type === 'note-img' && <ImgNote note={note} />}
-                {note.type === 'note-todos' && <TodosNote note={note} onToggleTodo={this.onToggleTodo} />}
-                <section className="note-btns">
-                    <button title="Delete" onClick={() => this.onDeleteNote(note.id)}><img src="assets/imgs/svgs/delete.svg" /></button>
-                    <button title="Duplicate" onClick={() => this.onDuplicateNote(note.id)}><img src="assets/imgs/duplicate.png" /></button>
-                    <button title="Edit" onClick={this.onToggleEditModal}><img src="assets/imgs/edit1.png" /></button>
-                    <button title="Send as mail"><img src="assets/imgs/mail-close.png" /></button>
-                    <button title={isPinned ? "Unpin" : "Pin"} onClick={() => this.onTogglePin(note.id)}><img src={isPinned ? "assets/imgs/pinned.png" : "assets/imgs/unpinned.png"} /></button>
-                    <button title="Change color" onClick={() => this.onToggleColorMenu(note.id)}><img src="assets/imgs/change-color.png" /></button>
-                    {isColorMenuOn && <PickNoteColor noteId={note.id} onChangeBgc={this.onChangeBgc} />}
+            <section className="notes-container">
+                <section className="dynamic-note" style={{ backgroundColor: note.style.backgroundColor }}>
+                    {note.type === 'note-txt' && <TxtNote note={note} />}
+                    {note.type === 'note-video' && <VideoNote note={note} />}
+                    {note.type === 'note-img' && <ImgNote note={note} />}
+                    {note.type === 'note-todos' && <TodosNote note={note} onToggleTodo={this.onToggleTodo} />}
+                    <section className="note-btns">
+                        <button title="Delete" onClick={() => this.onDeleteNote(note.id)}><img src="assets/imgs/svgs/delete.svg" /></button>
+                        <button title="Duplicate" onClick={() => this.onDuplicateNote(note.id)}><img src="assets/imgs/duplicate.png" /></button>
+                        <button title="Edit" onClick={this.onToggleEditModal}><img src="assets/imgs/edit1.png" /></button>
+                        <button title="Send as mail"><img src="assets/imgs/mail-close.png" /></button>
+                        <button title={isPinned ? "Unpin" : "Pin"} onClick={() => this.onTogglePin(note.id)}><img src={isPinned ? "assets/imgs/pinned.png" : "assets/imgs/unpinned.png"} /></button>
+                        <button title="Change color" onClick={() => this.onToggleColorMenu(note.id)}><img src="assets/imgs/change-color.png" /></button>
+                        {isColorMenuOn && <PickNoteColor noteId={note.id} onChangeBgc={this.onChangeBgc} />}
+                    </section>
+                    {isEditModalOn && <EditNoteModal note={note} onToggleEditModal={this.onToggleEditModal} onSaveEdit={this.onSaveEdit} />}
                 </section>
-                    {isEditModalOn && <EditNoteModal note={note} onToggleEditModal={this.onToggleEditModal} onSaveEdit={this.onSaveEdit}/>}
             </section>
+
         )
     }
 

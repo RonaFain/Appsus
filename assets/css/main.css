@@ -26,9 +26,10 @@
 @import "./apps/keep/pick-note-color.css";
 @import "./apps/keep/new-note-modal.css";
 @import "./apps/keep/new-note-form.css";
-@import "./apps/keep/edit-note-modal.css";
 @import "./apps/keep/todo-note.css";
 @import "./apps/keep/note-filter.css";
+@import "./apps/keep/edit-note-modal.css";
+@import "./apps/keep/edit-todos-note-modal.css";
 
 /* Book */
 @import './apps/book/book-app.css';
