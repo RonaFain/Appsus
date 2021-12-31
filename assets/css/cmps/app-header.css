@@ -11,9 +11,17 @@
 
 .app-header .main-nav {
   position: fixed;
-  right: 0;
+  right: 3%;
   top: 10%;
   display: flex;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  background-color: #fff;
+  font-family: lato-regular;
+}
+
+.app-header .main-nav a {
+  text-decoration: none;
 }
 
 .main-nav img {
@@ -21,9 +29,21 @@
 }
 
 .main-nav .link-container {
-  background-color: lightcoral;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+}
+
+.main-nav .link-container span {
+  text-align: center;
+}
+
+.main-nav a:first-child {
+  padding-top: 5px;
+}
+
+.main-nav a:first-child img {
+  margin-bottom: 5px;
 }
 
 .app-header .logo {

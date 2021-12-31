@@ -26,5 +26,13 @@
 .nav-to-app a {
   text-decoration: none;
   border: 1px solid #acacac;
+  border-radius: 12px;
   padding: 5px 20px;
+  color: #1C6DD0;
+
+  transition: .3s;
+}
+
+.nav-to-app a:hover {
+  background-color: #e5e5e5;
 }
