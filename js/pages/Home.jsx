@@ -29,6 +29,22 @@ export class Home extends React.Component {
           <NavToApp app={keep} />
           <NavToApp app={mail} />
         </div>
+        <div className="team-details">
+          <div className="profile first-profile">
+            <div className="profile-img"><img src="assets/imgs/profile2.PNG" /></div>
+            <div className="profile-content">
+              <h2>Sahar Gar Onne</h2>
+              <span>jdjshdjskdhsajhdsajdhjshdjskhdsa</span>
+              </div>
+          </div>
+          <div className="profile second-profile">
+            <div className="profile-content">
+              <h2>Rona Fainshtein</h2>
+              <span>djljspjoaskopsposkpoaskopaskoaks</span>
+            </div>
+            <div className="profile-img"><img src="assets/imgs/profile2.PNG" /></div>
+          </div>
+        </div>
       </section>
     )
   }
