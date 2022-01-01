@@ -109,7 +109,6 @@ export class DynamicNote extends React.Component {
         // console.log(exportTo)
         const { isPinned } = note
         return (
-            <section className="notes-container">
                 <section className="dynamic-note" style={{ backgroundColor: note.style.backgroundColor }}>
                     {note.type === 'note-txt' && <TxtNote note={note} />}
                     {note.type === 'note-video' && <VideoNote note={note} />}
@@ -126,7 +125,6 @@ export class DynamicNote extends React.Component {
                     </section>
                     {isEditModalOn && <EditNoteModal note={note} onToggleEditModal={this.onToggleEditModal} onSaveEdit={this.onSaveEdit} />}
                 </section>
-            </section>
 
         )
     }

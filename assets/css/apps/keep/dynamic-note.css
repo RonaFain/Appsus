@@ -4,8 +4,8 @@
     position: relative;
     box-shadow: inset 0px 0px 5px 0px black;
     border-radius: 5px;
-    display: inline-block;
-    margin: 10px 3px;
+    display: block;
+    margin: 20px auto ;
 }
 
 .dynamic-note .note-btns{
@@ -35,4 +35,72 @@
 .note h2 {
     text-align: center;
     margin-bottom: 10px;
+}
+
+
+
+@media screen and (min-width: 650px){
+    .dynamic-note{
+        width: 250px;
+        padding: 20px;
+        display: inline-block;
+        margin: 10px 0px;
+    }
+
+    .dynamic-note .note-btns{
+        right: 2%;
+        bottom: 2%;
+    }
+
+    .dynamic-note .note-btns button{
+        margin: 2px;
+    }
+
+    .dynamic-note button img {
+        width: 20px;
+    }
+
+    .note h2{
+        margin-bottom: 10px;
+    }
+}
+
+
+@media screen and (min-width: 890px){
+
+    .dynamic-note{
+        width: 250px;
+        padding: 20px;
+    }
+
+    .dynamic-note .note-btns{
+        right: 2%;
+        bottom: 2%;
+    }
+
+    .dynamic-note .note-btns button{
+        margin: 3px;
+    }
+
+    .note{
+        margin-bottom: 30px;
+    }
+
+}
+
+
+@media screen and (min-width: 1050px){
+    
+    .dynamic-note{
+        width: 300px;
+    }
+
+
+    .dynamic-note .note-btns button{
+        margin: 5px;
+    }
+
+    .note h2{
+        margin-bottom: 10px;
+    }
 }

@@ -1,5 +1,4 @@
 import { Home } from './js/pages/Home.jsx'
-import { About } from './js/pages/About.jsx'
 
 import { BookApp } from './js/pages/BookApp.jsx'
 import { BookDetails } from './js/apps/book/pages/BookDetails.jsx'
@@ -25,7 +24,6 @@ export function App() {
             <Route component={MailApp} path="/mailapp" />
             <Route component={BookDetails} path="/bookapp/:bookId" />
             <Route component={BookApp} path="/bookapp" />
-            <Route component={About} path="/about" />
             <Route component={Home} path="/" />
           </Switch>
         </main>

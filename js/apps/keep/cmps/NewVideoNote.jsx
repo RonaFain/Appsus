@@ -11,7 +11,7 @@ export class NewVideoNote extends React.Component{
                 title: ''
             },
             style: {
-                backgroundColor: 'orange'
+                backgroundColor: '#CC7351'
             }
         }
     }

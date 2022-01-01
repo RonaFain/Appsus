@@ -1,6 +1,6 @@
 .home .hero {
   background-color: lightsteelblue;
-  height: 80vh;
+  height: 20vh;
 }
 
 .home .hero img {
@@ -12,6 +12,8 @@
 
 .home .nav-apps {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 50px;
   justify-content: center;
   margin: 100px 0;
@@ -40,4 +42,47 @@
 
 .profile-img img {
   width: 100%;
+}
+
+@media screen and (min-width: 700px){
+  .home .hero{
+    height: 30vh;
+  }
+}
+
+@media screen and (min-width: 950px){
+  
+  .home .nav-apps{
+    flex-direction: row;
+    align-items: unset;
+  }
+  .home .hero{
+    height: 40vh;
+  }
+
+}
+
+@media screen and (min-width: 1150px){
+  .home .hero{
+    height: 50vh;
+  }
+}
+
+@media screen and (min-width: 1400px){
+  .home .hero{
+    height: 60vh;
+  }
+}
+
+
+@media screen and (min-width: 1650px){
+  .home .hero{
+    height: 70vh;
+  }
+}
+
+@media screen and (min-width: 1850px){
+  .home .hero{
+    height: 80vh;
+  }
 }

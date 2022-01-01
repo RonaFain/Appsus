@@ -7,6 +7,7 @@
   position: sticky;
   top: 0;
   background-color: #fff;
+  z-index: 100;
 }
 
 .app-header .main-nav {
@@ -68,8 +69,15 @@
 .app-header .search-container input {
   font-family: lato-regular;
   font-size: 1rem;
-  width: 250px;
+  width: 150px;
   padding: 5px 10px;
   border-radius: 12px;
   border: 1px solid gray;
+}
+
+
+@media screen and (min-width: 500px){
+  .app-header .search-container input{
+    width: 250px;
+  }
 }

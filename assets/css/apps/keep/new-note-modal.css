@@ -18,8 +18,8 @@
     background-color: rgb(255, 255, 254);
     margin: 5% auto 15% auto; 
     border: 1px solid rgb(0, 0, 0);
-    width: 400px;
-    height: 450px;
+    width: 350px;
+    height: 400px;
     text-align: center;
     border-radius: 10px;
     box-shadow: inset 0px 0px 4px 1px #525151
@@ -50,4 +50,13 @@
 
 .save-new-note-btn:hover{
     color: blue;
+}
+
+
+@media screen and (min-width: 650px){
+    
+    .new-note-modal{
+        width: 400px;
+        height: 450px; 
+    }
 }
