@@ -106,7 +106,7 @@ export class DynamicNote extends React.Component {
         const { note, isColorMenuOn, isEditModalOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
         const exportTo = this.onExportNoteToEmail(note)
-        console.log(exportTo)
+        // console.log(exportTo)
         const { isPinned } = note
         return (
             <section className="notes-container">

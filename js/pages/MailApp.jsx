@@ -28,10 +28,22 @@ export class MailApp extends React.Component {
   componentDidMount() {
     this.loadEmails()
     this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
+    this.searchParams()
   }
 
   componentWillUnmount() {
     this.removeEventBus();
+  }
+
+  searchParams = () => {
+    const query = new URLSearchParams(this.props.location.search)
+    console.log(query.get('subject') , query.get('body'))
+    const subject = query.get('subject')
+    const body = query.get('body')
+    if(subject || body) {
+      this.setState({ isShowCompose: true })
+    }
+
   }
 
   onSetCriteria = (newCriteria) => {
@@ -102,6 +114,11 @@ export class MailApp extends React.Component {
     })
   }
 
+  onExportEmailToNote = (email) => {
+    console.log('exporttt' , email);
+    this.props.history.push(`/keepapp?title=${email.subject}&txt=${email.body}`);
+  }
+
   render() {
     const { emails , criteria , isShowCompose} = this.state
     const { emailId } = this.props.match.params
@@ -128,7 +145,7 @@ export class MailApp extends React.Component {
                                  onToggleField={this.onToggleField}
                                  onSetReadEmail={this.onSetReadEmail}
                                  /> :
-           <EmailDetails emailId={emailId} onReplyEmail={this.onReplyEmail} onRemoveEmail={this.onRemoveEmail} onToggleField={this.onToggleField} />}
+           <EmailDetails emailId={emailId} onReplyEmail={this.onReplyEmail} onRemoveEmail={this.onRemoveEmail} onToggleField={this.onToggleField} onExportEmailToNote={this.onExportEmailToNote} />}
         </div>
       </section>
     )

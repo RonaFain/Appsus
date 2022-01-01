@@ -24,7 +24,7 @@ class _EmailDetails extends React.Component {
     const { email } = this.state
     if (!email) return <React.Fragment></React.Fragment>
 
-    const { onReplyEmail , onRemoveEmail , onToggleField} = this.props
+    const { onReplyEmail , onRemoveEmail , onToggleField , onExportEmailToNote } = this.props
     const isReceived = (email.status === 'sent' || email.status === 'draft') ? true : false
 
     return (
@@ -41,7 +41,7 @@ class _EmailDetails extends React.Component {
               <button onClick={(ev) => onToggleField(ev, email.id, 'isRead')} title={email.isRead ? 'Mark as unread' : 'Mark as read'}>
                 <i className={`fas fa-envelope${email.isRead ? '-open' : ''}`}></i>
               </button>
-              <button title={'Export to note'}><i className="fas fa-sticky-note"></i></button>
+              <button onClick={() => onExportEmailToNote(email)} title={'Export to note'}><i className="fas fa-sticky-note"></i></button>
               <button onClick={(ev) => onToggleField(ev, email.id, 'isStarred')} className={`email-star ${email.isStarred}`} 
                       title={email.isStarred ? 'Mark as unstarred' : 'Mark as starred'}>
                       <i className="fas fa-star"></i>
