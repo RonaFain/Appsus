@@ -45,7 +45,8 @@ export class EmailCompose extends React.Component {
     ev.preventDefault()
     const { email } = this.state
     emailService.saveEmail(email, status).then((email) => {
-      eventBusService.emit('user-msg', { txt: 'Email sent', type: 'success' })
+      const message = (email.status === 'draft') ? 'Saved email as draft' : 'Email sent'
+      eventBusService.emit('user-msg', { txt: message, type: 'success' })
       this.props.loadEmails()
       this.props.onToggleCompose()
     })
