@@ -13,7 +13,7 @@
 .edit-modal{
     position: absolute;
     left: 50%;
-    top: 30%;
+    top: 50%;
     transform: translate(-50%,-50%);
     background-color: rgb(255, 255, 254);
     margin: 5% auto 15% auto; 

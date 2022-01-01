@@ -18,7 +18,6 @@ export class NewTxtNote extends React.Component {
 
     componentDidMount(){
         const {exportedMail} = this.props
-        console.log(exportedMail)
         if(exportedMail){
             this.setState((prevState) => ({ note: { ...prevState.note,
                  info: { ...prevState.note.info,title: exportedMail.title , txt:exportedMail.txt  }}}))

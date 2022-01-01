@@ -4,6 +4,7 @@ import { NewTodosNote } from "./NewTodosNote.jsx"
 import { NewVideoNote } from "./NewVideoNote.jsx"
 
 import { notesService } from "../services/note.service.js"
+import { eventBusService } from "../../../services/event-bus.service.js"
 
 export class NewNoteModal extends React.Component {
 
@@ -21,7 +22,8 @@ export class NewNoteModal extends React.Component {
         ev.preventDefault()
         notesService.saveNote(note).then(
             this.props.loadNotes(),
-            this.props.toggleNewNoteModal()
+            this.props.toggleNewNoteModal(),
+            eventBusService.emit('user-msg', {txt:'Note Added', type: 'success'})
         )
 
     }

@@ -92,7 +92,7 @@ function _getFilteredNotes(notes,filterBy) {
             return note.type === `note-${type}` 
         })
     }
-    // filteredNotes = _getFilteredNotesByTitle(filteredNotes,title)
+    filteredNotes = _getFilteredNotesByTitle(filteredNotes,title)
     return filteredNotes
 }
 

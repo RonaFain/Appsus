@@ -9,14 +9,14 @@ class _AppHeader extends React.Component {
     nameApp: ''
   }
 
-  
+
 
   componentDidMount() {
     this.getNameApp()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.location.pathname !== this.props.location.pathname) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       this.getNameApp()
     }
   }
@@ -28,7 +28,9 @@ class _AppHeader extends React.Component {
   }
 
   onToggleAppsMenu = () => {
-    this.setState({ isShowMenu: !this.state.isShowMenu })
+    this.setState({ isShowMenu: !this.state.isShowMenu},() => {
+      if(!this.state.isShowMenu) this.setState({filterText: ''})
+    })
   }
 
   handleChange = ({ target }) => {
@@ -37,6 +39,7 @@ class _AppHeader extends React.Component {
     eventBusService.emit('search', value)
   }
 
+  
   render() {
     const { isShowMenu, filterText, nameApp } = this.state
 
@@ -48,10 +51,11 @@ class _AppHeader extends React.Component {
         {(nameApp === 'book' || nameApp === '/') ? '' :
           <div className="search-container">
             <input
+              ref='name'
               type="text"
               name="search"
               value={filterText}
-              placeholder= {`Search ${nameApp}`}
+              placeholder={`Search ${nameApp}`}
               onChange={this.handleChange}
               autoComplete="off"
             />
