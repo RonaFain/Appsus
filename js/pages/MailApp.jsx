@@ -82,7 +82,7 @@ export class MailApp extends React.Component {
     if(ev) ev.stopPropagation()
     emailService.removeEmail(emailId).then((email) => {
       this.loadEmails()
-      eventBusService.emit('user-msg', { txt: 'The mail moved to trash' , type: 'danger' })
+      eventBusService.emit('user-msg', { txt: 'The mail moved to trash' , type: '' })
       this.props.history.push('/mailapp')
     })
   }
@@ -132,7 +132,7 @@ export class MailApp extends React.Component {
         <aside className="aside-container">
           <button className="compose-btn" onClick={this.onToggleCompose}>
             <img src="assets/imgs/apps/mail/plus.png" />
-            <span> Compose</span>
+            {/* <span> Compose</span> */}
           </button>
           {isShowCompose && <EmailCompose onToggleCompose={this.onToggleCompose} loadEmails={this.loadEmails} emailId={emailId} noteEmail={noteEmail} />}
           <EmailFolderList onSetCriteria={this.onSetCriteria} activeStatus={criteria.status}/>

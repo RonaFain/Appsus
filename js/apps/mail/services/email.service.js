@@ -175,7 +175,7 @@ function _addEmail(emailToSave, status) {
   let email = _createEmail(emailToSave, status)
   emails = [email, ...emails]
   _saveEmailsToStorage(emails)
-  return Promise.resolve()
+  return Promise.resolve(email)
 }
 
 function _updateEmail(emailToSave) {

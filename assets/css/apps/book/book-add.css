@@ -1,43 +1,42 @@
 .book-add .opt-books-container {
-    list-style-type: none;
-    /* padding-left: 25%; */
+  list-style-type: none;
 }
 
 .book-add .opt-book {
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    max-width: 50%;
-    margin: auto;
-    margin-bottom: 15px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  max-width: 90%;
+  margin: auto;
+  margin-bottom: 15px;
 }
 
-.opt-books-container button{
-    font-size: 1rem;
-    font-weight: bold;
-    color: #bb8082;
-    background-color: whitesmoke;
-    border-radius: 50%;
-    font-family: inherit;
+.opt-books-container button,
+.book-add-form button {
+  font-weight: bold;
+  color: #bb8082;
+  background-color: whitesmoke;
+  border-radius: 6px;
+  font-family: inherit;
 }
 
-.opt-books-container button:hover {
-    background-color: #bb8082;
-    color: black;
+.opt-books-container button:hover,
+.book-add-form button:hover {
+  background-color: #bb8082;
+  color: black;
 }
 
 .book-add-form {
-    margin: 20px;
+  margin: 20px;
 }
 
 .book-add-form button {
-    margin-left: 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #bb8082;
-    background-color: whitesmoke;
-    font-family: inherit;
-    border: 1px solid black;
-    border-radius: 6px;
-    padding: 5px 10px;
+  margin-left: 20px;
+  padding: 5px 10px;
+}
+
+@media (min-width: 980px) {
+  .book-add .opt-book {
+    max-width: 50%;
+  }
 }

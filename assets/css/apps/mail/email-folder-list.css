@@ -1,24 +1,30 @@
-.email-folder-list {
-    display: flex;
-    flex-direction: column;
-}
-
 .email-folder-list ul {
-    list-style-type: none;
-    padding-left: 0px;
+  display: flex;
+  list-style-type: none;
+  padding-left: 0px;
+  margin: 0 5px;
 }
 
-.email-folder-list ul >* {
-    padding: 10px;
-    border-bottom: 1px solid #e5e5e5;
-    cursor: pointer;
-    transition: .3s;
+.email-folder-list ul > * {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.email-folder-list ul >*:hover {
-    background-color: #e5e5e5;
+.email-folder-list ul > *:hover {
+  background-color: #e5e5e5;
 }
 
 .email-folder-list ul .my-active {
-    background-color: #BEDCFA;
+  background-color: #bedcfa;
+}
+
+@media (min-width: 980px) {
+  .email-folder-list ul {
+    flex-direction: column;
+  }
+
+  .email-folder-list ul > * {
+    border-bottom: 1px solid #e5e5e5;
+  }
 }

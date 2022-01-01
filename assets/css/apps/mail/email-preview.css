@@ -8,7 +8,7 @@
   border-bottom: 1px solid #e5e5e5;
   cursor: pointer;
   transition: .4s;
-  min-width: 1000px;
+  /* min-width: 500px; */
 }
 
 .email-preview-container:hover {

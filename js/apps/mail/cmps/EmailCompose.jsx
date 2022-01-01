@@ -1,4 +1,5 @@
 import { emailService } from '../services/email.service.js'
+import { eventBusService } from '../../../services/event-bus.service.js'
 
 export class EmailCompose extends React.Component {
   state = {
@@ -44,6 +45,7 @@ export class EmailCompose extends React.Component {
     ev.preventDefault()
     const { email } = this.state
     emailService.saveEmail(email, status).then((email) => {
+      eventBusService.emit('user-msg', { txt: 'Email sent', type: 'success' })
       this.props.loadEmails()
       this.props.onToggleCompose()
     })
@@ -65,7 +67,7 @@ export class EmailCompose extends React.Component {
               name="toUser"
               type="text"
               id="to-user"
-              value={toUser}
+              value={toUser ? toUser : ''}
               onChange={this.handleChange}
               autoComplete="off"
             />
@@ -76,7 +78,7 @@ export class EmailCompose extends React.Component {
               name="subject"
               type="text"
               id="subject"
-              value={subject}
+              value={subject ? subject : ''}
               onChange={this.handleChange}
               autoComplete="off"
             />
@@ -84,7 +86,7 @@ export class EmailCompose extends React.Component {
           <textarea
             name="body"
             rows="18"
-            value={body}
+            value={body ? body : ''}
             onChange={this.handleChange}
           />
           <div className="form-btns">

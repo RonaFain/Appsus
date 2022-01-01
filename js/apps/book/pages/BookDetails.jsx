@@ -91,7 +91,7 @@ export class BookDetails extends React.Component {
     const className = amount > 150 ? 'red' : amount < 20 ? 'green' : '';
 
     return (
-      <section style={{backgroundColor: '#f6ecf0'}}>
+      <section>
         <div className="book-details">
           <div className="img-container">
             <img src={thumbnail} />

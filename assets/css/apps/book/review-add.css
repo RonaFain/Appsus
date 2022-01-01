@@ -14,7 +14,7 @@
   background-color: #fefefe;
   margin: 5% auto 15% auto;
   border: 1px solid #888;
-  width: 30%;
+  width: 90%;
   text-align: center;
   position: relative;
 }
@@ -49,4 +49,16 @@
 
 .review-add .btn-toggle-modal {
     padding: 5px 7px;
+}
+
+@media (min-width: 500px) {
+  .review-add .review-modal {
+    width: 60%;
+  }
+}
+
+@media (min-width: 980px) {
+  .review-add .review-modal {
+    width: 30%;
+  }
 }
