@@ -37,7 +37,6 @@ export class MailApp extends React.Component {
 
   searchParams = () => {
     const query = new URLSearchParams(this.props.location.search)
-    console.log(query.get('subject') , query.get('body'))
     const subject = query.get('subject')
     const body = query.get('body')
     if(subject || body) {
@@ -115,7 +114,6 @@ export class MailApp extends React.Component {
   }
 
   onExportEmailToNote = (email) => {
-    console.log('exporttt' , email);
     this.props.history.push(`/keepapp?title=${email.subject}&txt=${email.body}`);
   }
 

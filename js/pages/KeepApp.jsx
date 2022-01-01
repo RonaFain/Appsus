@@ -17,12 +17,16 @@ export class KeepApp extends React.Component {
         filterBy: {
             // title: '',
             type: 'all'
-        }
+        },
+        exportedMail: null
     }
 
 
     componentDidMount() {
         this.loadNotes()
+        this.searchParams()
+        if(!this.state.exportedMail) this.props.history.push('/keepapp')
+
         // this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
     }
 
@@ -35,11 +39,32 @@ export class KeepApp extends React.Component {
     }
 
     onSetTypeFilter(type) {
-        console.log(type)
+        // console.log(type)
         // this.setState((prevState) => ({ filterBy: { ...prevState.filterBy, type } }), this.loadNotes)
     }
 
     // debbouncedFunc = utilService.debounce(this.onSetTxtFilter, 100)
+
+    
+
+    searchParams = () => {
+        const query = new URLSearchParams(this.props.location.search)
+        const title = query.get('title')
+        const txt = query.get('txt')
+        if (title || txt) {
+            const exportedMail = {
+                title,
+                txt
+            }
+            this.setState({ exportedMail })
+            this.setState({ isNewNoteModalOn: true })
+        }
+
+        // if (subject || body) {
+        //     this.setState({ isShowCompose: true })
+        // }
+
+    }
 
     loadNotes = () => {
         const { filterBy } = this.state
@@ -57,16 +82,16 @@ export class KeepApp extends React.Component {
     }
 
     render() {
-        const { notes, pinnedNotes, isNewNoteModalOn } = this.state
+        const { notes, pinnedNotes, isNewNoteModalOn, exportedMail } = this.state
         if (!notes) return <React.Fragment></React.Fragment>
         const notesTypes = ['all', 'txt', 'todos', 'img', 'video']
         return (
             <section className="keep-app">
                 <NoteFilter notesTypes={notesTypes} onSetTypeFilter={this.onSetTypeFilter} />
                 <button className="new-note-btn" onClick={this.toggleNewNoteModal}>Create New Note</button>
-                {isNewNoteModalOn && <NewNoteModal toggleNewNoteModal={this.toggleNewNoteModal}
-                    loadNotes={this.loadNotes} toggleNewNoteModal={this.toggleNewNoteModal} />}
-                {(pinnedNotes && pinnedNotes.length > 0 )&&
+                {isNewNoteModalOn && <NewNoteModal loadNotes={this.loadNotes}
+                    toggleNewNoteModal={this.toggleNewNoteModal} exportedMail={exportedMail} />}
+                {(pinnedNotes && pinnedNotes.length > 0) &&
                     <section className="pinned-notes-container">
                         <h2>Pinned Notes</h2>
                         <section className="pinned-notes ">
