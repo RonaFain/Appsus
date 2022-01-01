@@ -28,6 +28,7 @@ export class NewNoteModal extends React.Component {
 
 
     render() {
+        const {exportedMail} = this.props
         const { newNoteType } = this.state
         return (
             <section className="new-note-modal-container">
@@ -42,7 +43,7 @@ export class NewNoteModal extends React.Component {
                         </select>
                     </section>
                     <section className="modal-by-type">
-                        {newNoteType === 'note-txt' && <NewTxtNote type={newNoteType} onSaveNote={this.onSaveNote} />}
+                        {newNoteType === 'note-txt' && <NewTxtNote type={newNoteType} onSaveNote={this.onSaveNote} exportedMail={exportedMail}/>}
                         {newNoteType === 'note-video' && <NewVideoNote type={newNoteType} onSaveNote={this.onSaveNote} />}
                         {newNoteType === 'note-img' && <NewImgNote type={newNoteType} onSaveNote={this.onSaveNote} />}
                         {newNoteType === 'note-todos' && <NewTodosNote type={newNoteType} onSaveNote={this.onSaveNote} />}
