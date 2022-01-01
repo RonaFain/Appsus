@@ -11,7 +11,7 @@ export class NewTxtNote extends React.Component {
                 txt: ''
             },
             style: {
-                backgroundColor: 'yellow'
+                backgroundColor: '#FCFFA6'
             }
         }
     }

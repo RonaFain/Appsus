@@ -2,7 +2,7 @@
 
 export function PickNoteColor({ noteId, onChangeBgc }) {
 
-    const colors = ['yellow', 'green', 'blue', 'red', 'orange', 'purple']
+    const colors = ['#B5EAEA','#B983FF','#FF7878','#CDF2CA','#FCFFA6','#70AF85','#CC7351','#32AFA9' ]
 
     return (
         <section className="color-menu-container">

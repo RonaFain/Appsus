@@ -25,3 +25,34 @@
 .color-menu .color-input:hover{
     transform: scale(1.1);
 }
+
+@media screen and (min-width: 650px){
+    .color-menu{
+        left: -5%;
+        width: 190px;
+    }
+
+    .color-menu .color-input{
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media screen and (min-width: 890px){
+    .color-menu{
+        left: unset;
+    }
+}
+
+
+
+@media screen and (min-width: 1050px){
+    .color-menu{
+        width:200px ;
+        left: unset;
+    }
+    .color-menu .color-input{
+        width: 20px;
+        height: 20px;
+    }
+}

@@ -29,7 +29,7 @@ const gNotes = [
             txt: "Fullstack Me Baby!"
         },
         style: {
-            backgroundColor: "yellow"
+            backgroundColor: "#FCFFA6"
         }
     },
     {
@@ -41,7 +41,7 @@ const gNotes = [
             title: "Bobi and Me"
         },
         style: {
-            backgroundColor: "#00d"
+            backgroundColor: "#32AFA9"
         }
     },
     {
@@ -64,7 +64,7 @@ const gNotes = [
             ]
         },
         style: {
-            backgroundColor: "green"
+            backgroundColor: "#B983FF"
         }
     }
 ]
@@ -86,11 +86,23 @@ function getPinnedNotes(){
 function _getFilteredNotes(notes,filterBy) {
     const {type} = filterBy
     const title = filterBy.title.txt
-    if (type === 'all') return notes
-    const filteredNotes = notes.filter(note => {
-        return note.type === `note-${type}` 
-    })
+    let filteredNotes = notes
+    if (type !== 'all') {
+        filteredNotes = notes.filter(note => {
+            return note.type === `note-${type}` 
+        })
+    }
+    // filteredNotes = _getFilteredNotesByTitle(filteredNotes,title)
     return filteredNotes
+}
+
+function _getFilteredNotesByTitle(notes,txt){
+    if(!txt) txt = ''
+    txt = txt.toLowerCase()
+    return notes.filter(note => {
+        let title = note.info.title.toLowerCase()
+        return title.includes(txt)
+    })
 }
 
 function toggleTodo(noteId, todoId) {
@@ -160,6 +172,7 @@ function saveEdit(note){
 
 function saveNote(note) {
     note.id = utilService.makeId()
+    note.info.title = utilService.capitalFirstLetter(note.info.title)
     if (note.type === 'note-todos') {
         const todosArr = note.info.todos
         const todos = todosArr.map(todo => {

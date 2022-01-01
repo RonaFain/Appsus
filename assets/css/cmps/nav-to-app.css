@@ -1,5 +1,5 @@
 .nav-to-app {
-  width: 250px;
+  width: 370px;
   padding: 20px;
   text-align: center;
   border: 2px solid #e5e5e5;
@@ -35,4 +35,10 @@
 
 .nav-to-app a:hover {
   background-color: #e5e5e5;
+}
+
+@media screen and (min-width: 950px){
+  .nav-to-app{
+    width: 250px;
+  }
 }

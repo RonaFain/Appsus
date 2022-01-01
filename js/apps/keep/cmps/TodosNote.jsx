@@ -1,12 +1,10 @@
-import { notesService } from "../services/note.service.js"
-import { utilService } from "../../../services/util.service.js"
+
 
 export function TodosNote({ note, onToggleTodo }) {
 
-    const title = utilService.capitalFirstLetter(note.info.title)
     return (
         <section className="todos-note note" >
-            <h2>{title}</h2>
+            <h2>{note.info.title}</h2>
             <ul>
                 {note.info.todos.map(todo => (
                     <div className="todo" key={todo.id}>

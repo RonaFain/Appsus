@@ -12,10 +12,17 @@
 
 .new-note-info .new-note-form textarea{
     max-width: 200px;
-    max-height: 170px;
+    max-height: 110px;
 }
 
 .new-note-info .new-note-form button{
     width: fit-content;
     margin: auto;
+}
+
+
+@media screen and (min-width: 650px){
+    .new-note-info .new-note-form textarea{
+        max-height: 170px;
+    }
 }

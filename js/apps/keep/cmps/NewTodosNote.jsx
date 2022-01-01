@@ -11,7 +11,7 @@ export class NewTodosNote extends React.Component {
                 todos: ''
             },
             style: {
-                backgroundColor: 'green'
+                backgroundColor: '#B983FF'
             }
         }
     }
