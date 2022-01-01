@@ -15,7 +15,7 @@ export class KeepApp extends React.Component {
         pinnedNotes: [],
         isNewNoteModalOn: false,
         filterBy: {
-            // title: '',
+            title: '',
             type: 'all'
         },
         exportedMail: null
@@ -26,25 +26,25 @@ export class KeepApp extends React.Component {
         this.loadNotes()
         this.searchParams()
         if(!this.state.exportedMail) this.props.history.push('/keepapp')
-
-        // this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
+        this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
     }
 
-    // componentWillUnmount() {
-    //     this.removeEventBus();
-    // }
-
-    onSetTxtFilter = (titleTxt) => {
-        this.setState((prevState) => ({ filterBy: { ...prevState.filterBy, title: titleTxt } }), this.loadNotes)
+    componentWillUnmount() {
+        this.removeEventBus();
     }
 
-    onSetTypeFilter(type) {
-        // console.log(type)
-        // this.setState((prevState) => ({ filterBy: { ...prevState.filterBy, type } }), this.loadNotes)
+    onSetTxtFilter = (title) => {
+        const titleTxt = title
+        this.setState((prevState) => ({filterBy: {...prevState.filterBy, title: titleTxt}}),this.loadNotes)
     }
 
-    // debbouncedFunc = utilService.debounce(this.onSetTxtFilter, 100)
+    debbouncedFunc = utilService.debounce(this.onSetTxtFilter, 100)
+    
 
+    onSetTypeFilter = (type) => {
+        const filterType = type
+        this.setState((prevState) => ({filterBy: {...prevState.filterBy, type: filterType}}),this.loadNotes)
+    }
     
 
     searchParams = () => {
@@ -59,11 +59,6 @@ export class KeepApp extends React.Component {
             this.setState({ exportedMail })
             this.setState({ isNewNoteModalOn: true })
         }
-
-        // if (subject || body) {
-        //     this.setState({ isShowCompose: true })
-        // }
-
     }
 
     loadNotes = () => {

@@ -74,7 +74,6 @@ _createNotes()
 
 function query(filterBy = null) {
     const notes = _loadNotesFromStorage()
-    if (!filterBy) return Promise.resolve(notes)
     const filteredNotes = _getFilteredNotes(notes, filterBy)
     return Promise.resolve(filteredNotes)
 }
@@ -86,9 +85,10 @@ function getPinnedNotes(){
 
 function _getFilteredNotes(notes,filterBy) {
     const {type} = filterBy
+    const title = filterBy.title.txt
     if (type === 'all') return notes
-    const filteredNotes = notes.filter(note => { 
-        return note.type === `note-${type}`
+    const filteredNotes = notes.filter(note => {
+        return note.type === `note-${type}` 
     })
     return filteredNotes
 }
