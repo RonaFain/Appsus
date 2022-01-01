@@ -65,6 +65,7 @@ export class EmailCompose extends React.Component {
               id="to-user"
               value={toUser}
               onChange={this.handleChange}
+              autoComplete="off"
             />
           </div>
           <div className="form-subject">
@@ -75,6 +76,7 @@ export class EmailCompose extends React.Component {
               id="subject"
               value={subject}
               onChange={this.handleChange}
+              autoComplete="off"
             />
           </div>
           <textarea

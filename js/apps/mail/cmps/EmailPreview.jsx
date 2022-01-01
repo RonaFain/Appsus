@@ -45,7 +45,6 @@ export class EmailPreview extends React.Component {
             </button>
             <h3>{email.status === 'sent' ? this.getUserName(email.to) : this.getUserName(email.from)}</h3>
             <span>{email.subject}</span>
-            {/* <span className="email-body">{email.body}</span> */}
             <LongTxt text={email.body} />
           </div>
           {isShowOptions ? 
@@ -58,7 +57,7 @@ export class EmailPreview extends React.Component {
               <button onClick={(ev) => onToggleField(ev, email.id, 'isRead')} title={email.isRead ? 'Mark as unread' : 'Mark as read'}>
                 <i className={`fas fa-envelope${email.isRead ? '-open' : ''}`}></i>
               </button>
-              <button onClick={() => onExpandEmail(email.id)} title={'Show more'}><i className="fas fa-expand"></i></button>
+              <button onClick={(ev) => onExpandEmail(ev, email.id)} title={'Show more'}><i className="fas fa-expand"></i></button>
             </div>
           : <span>{utilService.getTimeFromStamp(email.sentAt)}</span> }
         </div>

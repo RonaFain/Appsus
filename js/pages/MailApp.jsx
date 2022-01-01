@@ -6,7 +6,8 @@ import { EmailCompose } from '../apps/mail/cmps/EmailCompose.jsx'
 import { EmailFolderList } from '../apps/mail/cmps/EmailFolderList.jsx'
 import { EmailFilter } from '../apps/mail/cmps/EmailFilter.jsx'
 import { EmailList } from '../apps/mail/cmps/EmailList.jsx'
-import { EmailDetails } from '../apps/mail/pages/EmailDetails.jsx';
+import { EmailDetails } from '../apps/mail/pages/EmailDetails.jsx'
+import { Loader } from '../cmps/Loader.jsx'
 
 export class MailApp extends React.Component {
   state = {
@@ -43,20 +44,22 @@ export class MailApp extends React.Component {
     const { criteria , sort } = this.state
     emailService.query(criteria, sort).then((emails) => {
       this.setState({ emails })
-      this.props.history.push('/mailapp')})
+      this.props.history.push('/mailapp')
+    })
   }
 
   onToggleCompose = () => {
     this.setState({ isShowCompose: !this.state.isShowCompose})
   }
 
-  onExpandEmail = (emailId) => {
+  onExpandEmail = (ev, emailId) => {
+    if(ev) ev.stopPropagation()
     this.props.history.push(this.props.location.pathname + '/' + emailId);
   }
 
   onReplyEmail = (ev, emailId) => {
     if(ev) ev.stopPropagation();
-    this.onExpandEmail(emailId)
+    this.onExpandEmail(ev, emailId)
     this.setState({ isShowCompose: true })
   }
 
@@ -102,7 +105,8 @@ export class MailApp extends React.Component {
   render() {
     const { emails , criteria , isShowCompose} = this.state
     const { emailId } = this.props.match.params
-    // console.log('criteria' , criteria);
+    
+    if(!emails) return <Loader />
 
     return (
       <section className="mail-app main-layout">

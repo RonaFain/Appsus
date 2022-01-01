@@ -37,14 +37,13 @@ class _AppHeader extends React.Component {
 
   render() {
     const { isShowMenu, filterText, nameApp } = this.state
-    // console.log('filterText', filterText)
 
     return (
       <header className="app-header">
         <Link to="/" className="logo">
           <h1>Appsus</h1>
         </Link>
-        {nameApp === '/' ? '' :
+        {(nameApp === 'book' || nameApp === '/') ? '' :
           <div className="search-container">
             <input
               type="text"
@@ -52,6 +51,7 @@ class _AppHeader extends React.Component {
               value={filterText}
               placeholder= {`Search ${nameApp}`}
               onChange={this.handleChange}
+              autoComplete="off"
             />
           </div>
         }

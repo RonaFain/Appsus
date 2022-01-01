@@ -164,7 +164,7 @@ function getAmoutEmailsByFilter(field, value, isRead = undefined) {
   const emails = _loadEmailsFromStorage()
   const userEmails = _getAllUserEmails(emails)
   const amountEmail = userEmails.filter((email) => {
-    const isReadFilter = isRead === undefined || email.isRead === isRead
+    const isReadFilter = (isRead === undefined || email.isRead === isRead)
     return email[field] === value && isReadFilter
   }).length
   return amountEmail
@@ -214,7 +214,8 @@ function _getFilteredEmails(emails, criteria) {
   let { status } = criteria
   const toUserEmails = _getUserEmails(emails, 'to')
   const fromUserEmails = _getUserEmails(emails, 'from')
-  if (status === 'inbox' || status === 'trash')
+  if(status === 'trash') return _getCorrectEmails(emails, criteria)
+  else if(status === 'inbox')
     return _getCorrectEmails(toUserEmails, criteria)
   else if (status === 'sent' || status === 'draft')
     return _getCorrectEmails(fromUserEmails, criteria)

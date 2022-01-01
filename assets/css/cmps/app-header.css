@@ -18,6 +18,7 @@
   border-radius: 12px;
   background-color: #fff;
   font-family: lato-regular;
+  z-index: 1000;
 }
 
 .app-header .main-nav a {
@@ -62,4 +63,13 @@
 .app-header button:hover {
   border-radius: 50%;
   background-color: lightgrey;
+}
+
+.app-header .search-container input {
+  font-family: lato-regular;
+  font-size: 1rem;
+  width: 250px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  border: 1px solid gray;
 }

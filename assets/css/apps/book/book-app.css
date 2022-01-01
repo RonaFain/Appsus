@@ -1,6 +1,7 @@
 .book-app {
   text-align: center;
-  background-color: #f6ecf0;
+  /* background-color: #f6ecf0; */
   padding-top: 50px;
   padding-bottom: 50px;
+  font-family: lato-regular;
 }
