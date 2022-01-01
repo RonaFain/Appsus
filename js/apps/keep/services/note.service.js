@@ -40,7 +40,7 @@ const gNotes = [
         isPinned: false,
         info: {
             url: 'https://www.youtube.com/embed/btPJPFnesV4',
-            title: 'Waking up on a spring day'
+            title: 'Waking up on a sprint day'
         },
         style: {
             backgroundColor: '#CDF2CA'
@@ -126,7 +126,7 @@ const gNotes = [
         type: 'note-txt',
         isPinned: false,
         info: {
-            title: 'real programmers count from 0',
+            title: 'Real programmers count from 0',
             txt: ''
         },
         style: {
