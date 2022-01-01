@@ -17,7 +17,6 @@ export class DynamicNote extends React.Component {
     }
 
     componentDidMount() {
-        //   console.log('check')
         this.loadNote()
     }
 
@@ -55,9 +54,9 @@ export class DynamicNote extends React.Component {
 
     onTogglePin = (noteId) => {
         notesService.togglePin(noteId).then((note) => {
-            this.setState({ note },
+            // this.setState({ note },
                 this.props.loadNotes()
-            )
+            // )
         })
     }
 
@@ -94,7 +93,7 @@ export class DynamicNote extends React.Component {
                         <button title="Duplicate" onClick={() => this.onDuplicateNote(note.id)}><img src="assets/imgs/duplicate.png" /></button>
                         <button title="Edit" onClick={this.onToggleEditModal}><img src="assets/imgs/edit1.png" /></button>
                         <button title="Send as mail"><img src="assets/imgs/mail-close.png" /></button>
-                        <button title={isPinned ? "Unpin" : "Pin"} onClick={() => this.onTogglePin(note.id)}><img src={isPinned ? "assets/imgs/pinned.png" : "assets/imgs/unpinned.png"} /></button>
+                        <button title={isPinned ? "Unpin" : "Pin"} onClick={() => this.onTogglePin(note)}><img src={isPinned ? "assets/imgs/pinned.png" : "assets/imgs/unpinned.png"} /></button>
                         <button title="Change color" onClick={() => this.onToggleColorMenu(note.id)}><img src="assets/imgs/change-color.png" /></button>
                         {isColorMenuOn && <PickNoteColor noteId={note.id} onChangeBgc={this.onChangeBgc} />}
                     </section>

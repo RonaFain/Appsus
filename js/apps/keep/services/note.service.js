@@ -11,11 +11,13 @@ export const notesService = {
     toggleTodo,
     saveEdit,
     _saveNotesToStorage,
-    _loadNotesFromStorage
+    _loadNotesFromStorage,
+    getPinnedNotes
 }
 
 
 const STORAGE_KEY = 'notesDB'
+const STORAGE_KEY_PINNED = 'pinnedNotesDB'
 
 const gNotes = [
     {
@@ -67,14 +69,19 @@ const gNotes = [
     }
 ]
 
+
 _createNotes()
 
 function query(filterBy = null) {
     const notes = _loadNotesFromStorage()
     if (!filterBy) return Promise.resolve(notes)
     const filteredNotes = _getFilteredNotes(notes, filterBy)
-    // console.log(filteredNotes)
     return Promise.resolve(filteredNotes)
+}
+
+function getPinnedNotes(){
+    const pinnedNotes = _loadPinnedNotesFromStorage()
+    return Promise.resolve(pinnedNotes)
 }
 
 function _getFilteredNotes(notes,filterBy) {
@@ -83,7 +90,6 @@ function _getFilteredNotes(notes,filterBy) {
     const filteredNotes = notes.filter(note => { 
         return note.type === `note-${type}`
     })
-    // console.log(filteredNotes)
     return filteredNotes
 }
 
@@ -97,16 +103,24 @@ function toggleTodo(noteId, todoId) {
     return Promise.resolve(note)
 }
 
-function togglePin(noteId) {
+function togglePin(note) {
+    const noteId = note.id
     let notes = _loadNotesFromStorage()
-    const note = notes.find(note => note.id === noteId)
-    const noteIdx = notes.findIndex(note => note.id === noteId)
-    const noteToMove = notes.splice(noteIdx, 1)[0]
-    if (!note.isPinned) notes = [noteToMove, ...notes]
-    else notes = [...notes, noteToMove]
-    noteToMove.isPinned = !noteToMove.isPinned
+    let pinnedNotes = _loadPinnedNotesFromStorage()
+    if(!pinnedNotes) pinnedNotes = []
+    if(!note.isPinned){
+        let noteIdx = notes.findIndex(note => note.id === noteId)
+        notes.splice(noteIdx,1)
+        pinnedNotes = [note,...pinnedNotes]
+    }else{
+        let noteIdx = pinnedNotes.findIndex(note => note.id === noteId)
+        pinnedNotes.splice(noteIdx,1)
+        notes = [note,...notes]
+    }
+    note.isPinned = !note.isPinned
     _saveNotesToStorage(notes)
-    return Promise.resolve(noteToMove)
+    _savePinnedNotesToStorage(pinnedNotes)
+    return Promise.resolve()
 }
 
 function changeBgc(noteId, color) {
@@ -178,4 +192,11 @@ function _saveNotesToStorage(notes) {
 
 function _loadNotesFromStorage() {
     return storageService.loadFromStorage(STORAGE_KEY)
+}
+function _savePinnedNotesToStorage(notes) {
+    storageService.saveToStorage(STORAGE_KEY_PINNED, notes)
+}
+
+function _loadPinnedNotesFromStorage() {
+    return storageService.loadFromStorage(STORAGE_KEY_PINNED)
 }

@@ -12,6 +12,7 @@ export class KeepApp extends React.Component {
 
     state = {
         notes: [],
+        pinnedNotes: [],
         isNewNoteModalOn: false,
         filterBy: {
             // title: '',
@@ -45,6 +46,10 @@ export class KeepApp extends React.Component {
         notesService.query(filterBy).then(notes => {
             this.setState({ notes })
         })
+
+        notesService.getPinnedNotes().then(pinnedNotes => {
+            this.setState({ pinnedNotes })
+        })
     }
 
     toggleNewNoteModal = () => {
@@ -52,7 +57,7 @@ export class KeepApp extends React.Component {
     }
 
     render() {
-        const { notes, isNewNoteModalOn } = this.state
+        const { notes, pinnedNotes, isNewNoteModalOn } = this.state
         if (!notes) return <React.Fragment></React.Fragment>
         const notesTypes = ['all', 'txt', 'todos', 'img', 'video']
         return (
@@ -61,13 +66,21 @@ export class KeepApp extends React.Component {
                 <button className="new-note-btn" onClick={this.toggleNewNoteModal}>Create New Note</button>
                 {isNewNoteModalOn && <NewNoteModal toggleNewNoteModal={this.toggleNewNoteModal}
                     loadNotes={this.loadNotes} toggleNewNoteModal={this.toggleNewNoteModal} />}
-                <div className="notes-list-container">
-                    <section className="notes-list">
-                        {notes.map(note => {
-                            return <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
-                        })}
-                    </section>
-                </div>
+                {(pinnedNotes && pinnedNotes.length > 0 )&&
+                    <section className="pinned-notes-container">
+                        <h2>Pinned Notes</h2>
+                        <section className="pinned-notes ">
+                            {pinnedNotes.map(note => {
+                                return <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
+                            })}
+                        </section>
+                    </section>}
+                <section className="notes-list">
+                    {notes.map(note => {
+                        return <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
+                    })}
+                </section>
+
             </section>
         )
     }
