@@ -42,17 +42,9 @@ export class EditTodosNote extends React.Component {
         ev.preventDefault()
         todosService.deleteTodo(note.id, todoId).then((note => {
             this.setState({ note })
-            // this.props.onSaveEdit(ev, note)
         }))
     }
 
-    // onUpdateTodosEdit = (ev, note) => {
-    //     ev.preventDefault()
-    //     todosService.updateTodosEdit(note).then(note => {
-    //         this.props.onSaveEdit(ev, note)
-    //     })
-
-    // }
 
     render() {
         const { note, newTodoTxt, isAddNewTodoOn } = this.state

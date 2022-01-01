@@ -8,6 +8,10 @@
     margin: 20px auto ;
 }
 
+.dynamic-note .video-note{
+    padding: 20px 0px;
+}
+
 .dynamic-note .note-btns{
     position: absolute;
     right: 2%;
@@ -42,7 +46,6 @@
 @media screen and (min-width: 650px){
     .dynamic-note{
         width: 250px;
-        padding: 20px;
         display: inline-block;
         margin: 10px 0px;
     }
@@ -70,7 +73,6 @@
 
     .dynamic-note{
         width: 250px;
-        padding: 20px;
     }
 
     .dynamic-note .note-btns{

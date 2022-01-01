@@ -23,6 +23,7 @@ export class KeepApp extends React.Component {
 
 
     componentDidMount() {
+        window.scrollTo(0,0)
         this.loadNotes()
         this.searchParams()
         if (!this.state.exportedMail) this.props.history.push('/keepapp')
