@@ -30,6 +30,7 @@ export class MailApp extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     this.loadEmails()
     this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
     this.searchParams()
@@ -53,7 +54,7 @@ export class MailApp extends React.Component {
     this.setState((prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria }}), this.loadEmails)
   }
 
-  debbouncedFunc = utilService.debounce(this.onSetCriteria, 50)
+  debbouncedFunc = utilService.debounce(this.onSetCriteria, 10)
 
   loadEmails = () => {
     const { criteria , sort } = this.state
@@ -82,7 +83,7 @@ export class MailApp extends React.Component {
     if(ev) ev.stopPropagation()
     emailService.removeEmail(emailId).then((email) => {
       this.loadEmails()
-      eventBusService.emit('user-msg', { txt: 'The mail moved to trash' , type: '' })
+      eventBusService.emit('user-msg', { txt: 'The mail moved to trash/deleted' , type: '' })
       this.props.history.push('/mailapp')
     })
   }
@@ -97,8 +98,8 @@ export class MailApp extends React.Component {
   }
 
   getUserMessage = (field , value) => {
-    if(field === 'isRead') return 'Mark as unread/read'
-    else return 'Mark as unstarred/starred'
+    if(field === 'isRead') return `Mark as ${value === true ? 'read' : 'unread'}`
+    else return `Mark as ${value === true ? 'starred' : 'unstarred'}`
   }
 
   onSetSort = ({ target }) => {
@@ -132,7 +133,6 @@ export class MailApp extends React.Component {
         <aside className="aside-container">
           <button className="compose-btn" onClick={this.onToggleCompose}>
             <img src="assets/imgs/apps/mail/plus.png" />
-            {/* <span> Compose</span> */}
           </button>
           {isShowCompose && <EmailCompose onToggleCompose={this.onToggleCompose} loadEmails={this.loadEmails} emailId={emailId} noteEmail={noteEmail} />}
           <EmailFolderList onSetCriteria={this.onSetCriteria} activeStatus={criteria.status}/>

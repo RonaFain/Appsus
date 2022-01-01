@@ -21,29 +21,51 @@ const gEmails = [
     isRead: true,
     isStarred: false,
     sentAt: 1551133930594,
-    from: 'jojo@jojo.com',
+    from: 'Koko@koko.com',
     to: 'momo@momo.com',
   },
   {
     id: utilService.makeId(),
     subject: 'Hi you!',
-    body: 'Hi you!',
-    status: 'inbox',
-    isRead: false,
-    isStarred: true,
-    sentAt: 1551133930594,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com',
-  },
-  {
-    id: utilService.makeId(),
-    subject: "Hi I't Dodo",
     body: 'My friend it is so good to see you again',
     status: 'inbox',
     isRead: false,
     isStarred: true,
     sentAt: 1551133930594,
-    from: 'dodo@dodo.com',
+    from: 'Asaf@momo.com',
+    to: 'user@appsus.com',
+  },
+  {
+    id: utilService.makeId(),
+    subject: 'Invitation Meme Gen',
+    body: 'Hola, alondai1 invited you as a teammate on Meme Gen in Zeplin.',
+    status: 'inbox',
+    isRead: false,
+    isStarred: true,
+    sentAt: 1551133930594,
+    from: 'Alon@alon.com',
+    to: 'user@appsus.com',
+  },
+  {
+    id: utilService.makeId(),
+    subject: 'Story Online',
+    body: 'Thanks for shopping at Story. Your order will be processed by Global-e, our global fulfillment partner as Merchant of Record. We are happy to inform you that this order is now confirmed and we will begin processing your purchase for dispatch. Questions?',
+    status: 'inbox',
+    isRead: false,
+    isStarred: true,
+    sentAt: 1551133930594,
+    from: 'Story@story.com',
+    to: 'user@appsus.com',
+  },
+  {
+    id: utilService.makeId(),
+    subject: "2 new jobs for 'back end developer",
+    body: '2 new jobs in Israel match your preferences.',
+    status: 'inbox',
+    isRead: false,
+    isStarred: true,
+    sentAt: 1551133930594,
+    from: 'Linked@linkedin.com',
     to: 'user@appsus.com',
   },
   {
@@ -59,8 +81,8 @@ const gEmails = [
   },
   {
     id: utilService.makeId(),
-    subject: 'Bobo mt friend',
-    body: "What's up?",
+    subject: 'Welcome to Appsus',
+    body: "You can connect to the app easily and quickly via phone verification by SMS.",
     status: 'sent',
     isRead: false,
     isStarred: true,
@@ -70,7 +92,7 @@ const gEmails = [
   },
   {
     id: utilService.makeId(),
-    subject: 'Hellooooo!',
+    subject: 'Hello!',
     body: 'Do you rememver me?',
     status: 'trash',
     isRead: false,
@@ -82,7 +104,7 @@ const gEmails = [
   {
     id: utilService.makeId(),
     subject: 'Comfirm',
-    body: 'yes I agree',
+    body: 'Yes I agree',
     status: 'trash',
     isRead: false,
     isStarred: true,
@@ -134,7 +156,7 @@ function removeEmail(emailId) {
   if(email.status === 'draft' || email.status === 'trash') emails = emails.filter((email) => email.id !== emailId)
   else email.status = 'trash'
   _saveEmailsToStorage(emails)
-  return Promise.resolve(emails)
+  return Promise.resolve(email)
 }
 
 function getEmailById(emailId) {

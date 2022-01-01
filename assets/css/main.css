@@ -9,6 +9,7 @@
 @import "./cmps/home.css";
 @import "./cmps/nav-to-app.css";
 @import "./cmps/user-msg.css";
+@import "./cmps/long-txt.css";
 
 /* Mail */
 @import "./apps/mail/mail-app.css";
