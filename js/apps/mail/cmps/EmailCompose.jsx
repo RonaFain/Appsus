@@ -18,15 +18,17 @@ export class EmailCompose extends React.Component {
   }
 
   loadEmail = () => {
-    const { emailId } = this.props
-    if (!emailId) return
-    emailService.getEmailById(emailId).then((email) => {
+    const { emailId , noteEmail } = this.props
+    if (!emailId && !noteEmail) return
+    else if(emailId) emailService.getEmailById(emailId).then((email) => {
       const setId = email.status === 'draft' ? email.id : ''
-      console.log(email.status, setId)
       this.setState({
         email: { toUser: email.from, subject: email.subject, body: email.body,
                   id: setId},
       })
+    })
+    else this.setState({
+      email: {toUser: '', subject: noteEmail.subject, body: noteEmail.body, id: ''}
     })
   }
 

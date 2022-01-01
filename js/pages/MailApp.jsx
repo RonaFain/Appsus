@@ -22,6 +22,10 @@ export class MailApp extends React.Component {
     sort: {
       type: 'byDate',
       order: 1
+    },
+    noteEmail: {
+      subject: '',
+      body: ''
     }
   }
 
@@ -37,13 +41,12 @@ export class MailApp extends React.Component {
 
   searchParams = () => {
     const query = new URLSearchParams(this.props.location.search)
-    console.log(query.get('subject') , query.get('body'))
     const subject = query.get('subject')
     const body = query.get('body')
+    this.setState({ noteEmail: {subject, body} })
     if(subject || body) {
       this.setState({ isShowCompose: true })
     }
-
   }
 
   onSetCriteria = (newCriteria) => {
@@ -115,12 +118,11 @@ export class MailApp extends React.Component {
   }
 
   onExportEmailToNote = (email) => {
-    console.log('exporttt' , email);
     this.props.history.push(`/keepapp?title=${email.subject}&txt=${email.body}`);
   }
 
   render() {
-    const { emails , criteria , isShowCompose} = this.state
+    const { emails , criteria , isShowCompose , noteEmail } = this.state
     const { emailId } = this.props.match.params
     
     if(!emails) return <Loader />
@@ -132,7 +134,7 @@ export class MailApp extends React.Component {
             <img src="assets/imgs/apps/mail/plus.png" />
             <span> Compose</span>
           </button>
-          {isShowCompose && <EmailCompose onToggleCompose={this.onToggleCompose} loadEmails={this.loadEmails} emailId={emailId} />}
+          {isShowCompose && <EmailCompose onToggleCompose={this.onToggleCompose} loadEmails={this.loadEmails} emailId={emailId} noteEmail={noteEmail} />}
           <EmailFolderList onSetCriteria={this.onSetCriteria} activeStatus={criteria.status}/>
         </aside>
         <div className="email-container">

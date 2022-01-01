@@ -171,7 +171,6 @@ function getAmoutEmailsByFilter(field, value, isRead = undefined) {
 }
 
 function _addEmail(emailToSave, status) {
-  console.log('adddd', emailToSave)
   let emails = _loadEmailsFromStorage()
   let email = _createEmail(emailToSave, status)
   emails = [email, ...emails]
@@ -180,7 +179,6 @@ function _addEmail(emailToSave, status) {
 }
 
 function _updateEmail(emailToSave) {
-  console.log('updateeeeeee', emailToSave)
   const emails = _loadEmailsFromStorage()
   const emailIdx = emails.findIndex((email) => email.id === emailToSave.id)
   emails[emailIdx] = _createEmail(emailToSave, 'sent', emailToSave.id)
