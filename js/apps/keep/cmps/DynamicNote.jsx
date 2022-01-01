@@ -7,6 +7,7 @@ import { VideoNote } from "./VideoNote.jsx"
 import { PickNoteColor } from "./PickNoteColor.jsx"
 import { EditNoteModal } from "./EditNoteModal.jsx"
 
+const {Link} = ReactRouterDOM
 
 export class DynamicNote extends React.Component {
 
@@ -76,10 +77,36 @@ export class DynamicNote extends React.Component {
         )
     }
 
+    onExportNoteToEmail = (note) => {
+        const subject = (note.info.title) ? note.info.title : 'No subject'
+        let body = 'No body'
+        switch (note.type) {
+          case 'note-txt':
+            body = note.info.txt
+            break;
+          case 'note-video':
+            body = note.info.url
+            break;
+          case 'note-img':
+            body = note.info.url
+            break;
+          case 'note-todos':
+            const todosTxts = note.info.todos.map((todo) => todo.txt);
+            body = 'Todos: \n• ' + todosTxts.join('\n* ');
+            break;
+        }
+        
+         return `/mailapp?subject=${subject}&body=${body}`
+        
+      }
+    
+
 
     render() {
         const { note, isColorMenuOn, isEditModalOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
+        const exportTo = this.onExportNoteToEmail(note)
+        console.log(exportTo)
         const { isPinned } = note
         return (
             <section className="notes-container">
@@ -92,7 +119,7 @@ export class DynamicNote extends React.Component {
                         <button title="Delete" onClick={() => this.onDeleteNote(note.id)}><img src="assets/imgs/svgs/delete.svg" /></button>
                         <button title="Duplicate" onClick={() => this.onDuplicateNote(note.id)}><img src="assets/imgs/duplicate.png" /></button>
                         <button title="Edit" onClick={this.onToggleEditModal}><img src="assets/imgs/edit1.png" /></button>
-                        <button title="Send as mail"><img src="assets/imgs/mail-close.png" /></button>
+                        <Link to={exportTo}><button title="Send as mail" ><img src="assets/imgs/mail-close.png" /></button></Link>
                         <button title={isPinned ? "Unpin" : "Pin"} onClick={() => this.onTogglePin(note)}><img src={isPinned ? "assets/imgs/pinned.png" : "assets/imgs/unpinned.png"} /></button>
                         <button title="Change color" onClick={() => this.onToggleColorMenu(note.id)}><img src="assets/imgs/change-color.png" /></button>
                         {isColorMenuOn && <PickNoteColor noteId={note.id} onChangeBgc={this.onChangeBgc} />}
